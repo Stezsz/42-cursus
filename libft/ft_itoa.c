@@ -41,7 +41,7 @@ char	*ft_itoa(int n)
 		sign = 1;
 		nbr = -n;
 	}
-	len = nbr_len(n);
+	len = ft_len(n);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (0);
