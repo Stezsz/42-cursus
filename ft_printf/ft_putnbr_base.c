@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:51:49 by strodrig          #+#    #+#             */
-/*   Updated: 2024/05/18 17:52:41 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:56:59 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putadd_base(unsigned long int nbr, char Xx, int *printed)
+void	ft_putnbr_base(unsigned int nbr, char Xx, int *printed)
 {
-	unsigned long int		blen;
-	char		*base;
+	unsigned int	blen;
+	char			*base;
 
 	blen = 16;
 	if (Xx == 'x')
@@ -26,7 +26,7 @@ void	ft_putadd_base(unsigned long int nbr, char Xx, int *printed)
 		ft_putchar(base[nbr % blen], printed);
 	else
 	{
-		ft_putadd_hex(nbr / blen, Xx, printed);
-		ft_putadd_hex(nbr % blen, Xx, printed);
+		ft_putnbr_base(nbr / blen, Xx, printed);
+		ft_putnbr_base(nbr % blen, Xx, printed);
 	}
 }

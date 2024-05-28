@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:09:23 by strodrig          #+#    #+#             */
-/*   Updated: 2024/05/18 16:38:25 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:58:10 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_putadd_hex(unsigned long int nbr, char Xx, int *printed)
 {
 	unsigned long int		blen;
-	char		*base;
+	char					*base;
 
 	blen = 16;
 	if (Xx == 'x')

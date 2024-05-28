@@ -15,21 +15,21 @@
 static void	check_type(va_list args, const char format, int *printed)
 {
 	if (format == 'c')
-		ft_putchar((char)va_arg(args, int), printed); //
+		ft_putchar((char)va_arg(args, int), printed);
 	else if (format == 's')
-		ft_putstr(va_arg(args, char *), printed); //
+		ft_putstr(va_arg(args, char *), printed);
 	else if (format == 'p')
-		ft_putadd(va_arg(args, void *), printed); //
+		ft_putadd(va_arg(args, void *), printed);
 	else if (format == 'd' || format == 'i')
-		ft_putnbr(va_arg(args, int), printed); //
+		ft_putnbr(va_arg(args, int), printed);
 	else if (format == 'u')
-		ft_putnbr_u(va_arg(args, int), printed); //
+		ft_putnbr_u(va_arg(args, int), printed);
 	else if (format == 'x')
-		ft_putnbr_base();
+		ft_putnbr_base(va_arg(args, int), format, printed);
 	else if (format == 'X')
-		ft_putnbr_base();
-	/*else if (format == '%')
-		ft_putchar();*/
+		ft_putnbr_base(va_arg(args, int), format, printed);
+	else if (format == '%')
+		ft_putchar(format, printed);
 }
 
 int	ft_printf(const char *format, ...)
@@ -54,7 +54,7 @@ int	ft_printf(const char *format, ...)
 	return (printed);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	ft_printf("%c", 's');
 	printf(" %c\n", 's');
@@ -68,4 +68,11 @@ int	main(void)
 	printf(" %i\n", 1234);
 	ft_printf("%u", -123);
 	printf(" %u\n", -123);
+	ft_printf("%x", 772);
+	printf(" %x\n", 772);
+	ft_printf("%X", 772);
+	printf(" %X\n", 772);
+	ft_printf("%%");
+	printf(" %%\n");
 }
+ */
