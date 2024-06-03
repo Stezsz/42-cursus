@@ -37,6 +37,8 @@ int	ft_printf(const char *format, ...)
 	va_list		args;
 	int			printed;
 
+	if (!format)
+		return (-1);
 	printed = 0;
 	va_start(args, format);
 	while (*format)
@@ -54,25 +56,28 @@ int	ft_printf(const char *format, ...)
 	return (printed);
 }
 
-/* int	main(void)
+/*int	main(void)
 {
-	ft_printf("%c", 's');
-	printf(" %c\n", 's');
-	ft_printf("%s", "banana");
-	printf(" %s\n", "banana");
-	ft_printf("%p", (void *)77);
-	printf(" %p\n", (void *)77);
-	ft_printf("%d", 2147483647);
-	printf(" %d\n", 2147483647);
-	ft_printf("%i", 1234);
-	printf(" %i\n", 1234);
-	ft_printf("%u", -123);
-	printf(" %u\n", -123);
-	ft_printf("%x", 772);
-	printf(" %x\n", 772);
-	ft_printf("%X", 772);
-	printf(" %X\n", 772);
-	ft_printf("%%");
-	printf(" %%\n");
-}
- */
+	printf("-----------\n");
+	ft_printf("%p\n", (void *)0);
+	printf("%p\n", (void *)0);
+	printf("-----------\n");
+	ft_printf("%i\n", 2147483647);
+	printf("%i\n", 2147483647);
+	printf("-----------\n");
+	ft_printf("%i\n", (int)-2147483648);
+	printf("%i\n", (int)-2147483648);
+	printf("-----------\n");
+	ft_printf("%x\n", 0);
+	printf("%x\n", 0);
+	printf("-----------\n");
+	ft_printf("%s\n", "");
+	printf("%s\n", "");
+	printf("-----------\n");
+	ft_printf("%i\n", ft_printf(NULL));
+	// printf("%i",printf(NULL));
+	printf("-----------\n");
+	ft_printf("%%\n");
+	printf("%%\n");
+	printf("-----------\n");
+}*/

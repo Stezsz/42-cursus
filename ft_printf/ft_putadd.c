@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 16:09:23 by strodrig          #+#    #+#             */
-/*   Updated: 2024/05/20 15:58:10 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:01:48 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	ft_putadd(void	*add, int	*printed)
 	unsigned long int	ptr;
 
 	ptr = (unsigned long int)add;
+	if (!ptr)
+	{
+		ft_putstr("(nil)", printed);
+		return ;
+	}
 	ft_putstr("0x", printed);
 	ft_putadd_hex(ptr, 'x', printed);
 }

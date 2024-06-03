@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: strodrig <strodrig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 15:37:20 by strodrig          #+#    #+#             */
-/*   Updated: 2024/05/18 15:40:26 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:45:19 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putstr(char *s, int *printed)
 {
-	if (s == NULL)
+	if (!s)
 		ft_putstr("(null)", printed);
 	while (s && *s)
 	{
