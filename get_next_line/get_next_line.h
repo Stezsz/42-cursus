@@ -20,15 +20,15 @@
 # include <stddef.h>
 # include <stdlib.h>
 
-
+char	*func(char **line, char **tmp, int nl);
 char	*get_next_line(int fd);
-char	*func(char **line, char **temp, int nl);
+char	*ft_strdup(const char *s1);
 char	*get_reminder(char **str, int nl);
-char	*ft_strdup(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int	check_newline(char *buff);
+char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+int		check_newline(char *buff);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
 
 #endif

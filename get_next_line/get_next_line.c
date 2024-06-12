@@ -14,39 +14,38 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*temp; // Armazena dados entre chamadas
-	char		buff[BUFFER_SIZE + 1]; // Buffer para leitura
-	char		*line; // Linha que será retornada
-	int			bytes; // Número de bytes lidos
-	int			nl; // Índice do caractere de nova linha
+	static char	*temp;
+	char		buff[BUFFER_SIZE + 1];
+	char		*line;
+	int			bytes;
+	int			nl;
 
 	if (!temp)
 		temp = ft_strdup("");
-
-	bytes = read(fd, buff, BUFFER_SIZE); // Lê o arquivo
+	bytes = read(fd, buff, BUFFER_SIZE);
 	while (bytes >= 0)
 	{
-		buff[bytes] = 0; // Determina o fim
-		temp = ft_strjoin(temp, buff); // Junta o lido com o que temos
+		buff[bytes] = 0;
+		temp = ft_strjoin(temp, buff);
 		nl = check_newline(temp);
 		if (nl != -1)
 			return(func(&line, &temp, nl));
 		if (!bytes && !temp[0])
-			break ; // Se leu tudo e temp esta vazio, termina
+			break ;
 		if (!bytes)
-			return (get_reminder(&temp, 0)); // Se leu tudo e falta algo, retorna o resto
-		bytes = read(fd, buff, BUFFER_SIZE); // Lê mais do arquivo
+			return (get_reminder(&temp, 0));
+		bytes = read(fd, buff, BUFFER_SIZE);
 	}
 	free(temp);
 	temp = NULL;
-	return (NULL); // Retorna NULL se houver erro ou fim do arquivo
+	return (NULL);
 }
 
 char	*func(char **line, char **temp, int nl)
 {
-	*line = ft_substr(*temp, 0, nl + 1); // Copia tudo ate nova linha
-	*temp = get_reminder(temp, nl + 1); // Atualiza temp com o resto
-	return (*line); // Retorna linha completa;
+	*line = ft_substr(*temp, 0, nl + 1);
+	*temp = get_reminder(temp, nl + 1);
+	return (*line);
 }
 
 char	*get_reminder(char **str, int nl)
@@ -54,11 +53,11 @@ char	*get_reminder(char **str, int nl)
 	char	*reminder;
 	int		rlen;
 
-	rlen = ft_strlen(*str + nl); // Calcula o len do resto
-	reminder = ft_substr(*str, nl, rlen); // Copia o resto para nova str
+	rlen = ft_strlen(*str + nl);
+	reminder = ft_substr(*str, nl, rlen);
 	free(*str);
 	*str = NULL;
-	return (reminder); // retorna o resto
+	return (reminder);
 }
 
 int	check_newline(char *buff)
@@ -70,7 +69,7 @@ int	check_newline(char *buff)
 			return (i);
 		i++;
 	}
-	return (-1); // Se n encontrar
+	return (-1);
 }
 
 size_t	ft_strlen(const char *s)
@@ -82,3 +81,15 @@ size_t	ft_strlen(const char *s)
 		l++;
 	return (l);
 }
+
+/*int	main(void)
+{
+	int		fd = open("tester.txt", O_RDONLY);
+	char	*line;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	return 0;
+}*/

@@ -12,82 +12,90 @@
 
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	char	*s1;
-
-	i = ft_strlen(s);
-	s1 = (char *)malloc(sizeof(char) * i + 1);
-	if (!(s1))
-		return (NULL);
-	ft_memcpy(s1, s, i + 1);
-	return (s1);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
+	char	*substr;
 	size_t	i;
 
 	i = 0;
-	if (!dest && !src)
+	if (!s)
 		return (NULL);
-	if (dest != src)
-	{
-		while (i < n)
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i++;
-		}
-	}
-	return (dest);
+	if (start >= ft_strlen(s))
+		return ((char *) ft_calloc(1, sizeof(char)));
+	if (ft_strlen(s) <= start + len)
+		substr = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+	else
+		substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
+		return (NULL);
+	while (s[start] && i < len)
+		substr[i++] = s[start++];
+	substr[i] = '\0';
+	return (substr);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	while (n--)
+		*((unsigned char *)(s + n)) = 0;
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*res;
+
+	res = malloc(size * count);
+	if (!res)
+		return (0);
+	ft_bzero(res, size * count);
+	return (res);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
+	int		s1_len;
+	int		s2_len;
 	int		i;
-	int		len;
 
-	i = -1;
-	len = -1;
-	if (s1 == NULL && s2 == NULL)
+	i = 0;
+	if (!s1 || !s2)
+		return (0);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!str)
 		return (NULL);
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1 != NULL && s1[++len] != '\0')
-		str[++i] = s1[len];
-	len = -1;
-	while (s2 != NULL && s2[++len] != '\0')
-		str[++i] = s2[len];
-	str[++i] = '\0';
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	i = 0;
+	while (s2[i])
+		str[s1_len++] = s2[i++];
+	str[s1_len] = '\0';
+	free((void *)s1);
+	s1 = NULL;
 	return (str);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strdup(const char *s1)
 {
-	size_t	s_len;
-	size_t	i;
-	size_t	j;
-	char	*str;
+	char	*copy;
+	size_t	s1_len;
+	int		i;
 
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (start + len > s_len)
-		len = s_len - start;
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
+	i = 0;
+	s1_len = ft_strlen(s1);
+	copy = malloc(sizeof(char) * (s1_len + 1));
+	if (!copy)
 		return (NULL);
-	i = start;
-	j = 0;
-	while (s[i] && j < len)
+	while (s1[i])
 	{
-		str[j] = s[i];
+		copy[i] = s1[i];
 		i++;
-		j++;
 	}
-	str[j] = '\0';
-	return (str);
+	copy[i] = '\0';
+	return (copy);
 }
