@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 13:56:27 by strodrig          #+#    #+#             */
-/*   Updated: 2024/06/16 13:56:27 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:10:38 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_next_line(int fd)
 {
 	static char	*temp[8192];
-	char		buff[BUFFER_SIZE + 1];
+	static char		buff[BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes;
 	int			nl;
