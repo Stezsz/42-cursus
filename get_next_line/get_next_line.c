@@ -14,72 +14,27 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*temp;
-	static char		buff[BUFFER_SIZE + 1];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
-	int			bytes;
-	int			nl;
+	size_t			i;
 
-	if (!temp)
-		temp = ft_strdup("");
-	bytes = read(fd, buff, BUFFER_SIZE);
-	while (bytes >= 0)
+	if (fd < 0 || fd > FOPEN_MAX)
 	{
-		buff[bytes] = 0;
-		temp = ft_strjoin(temp, buff);
-		nl = check_newline(temp);
-		if (nl != -1)
-			return(func(&line, &temp, nl));
-		if (!bytes && !temp[0])
-			break ;
-		if (!bytes)
-			return (get_reminder(&temp, 0));
-		bytes = read(fd, buff, BUFFER_SIZE);
+		i = 0;
+		while (buffer[i])
+			buffer[i++] = 0;
+		return (NULL);
 	}
-	free(temp);
-	temp = NULL;
-	return (NULL);
-}
-
-char	*func(char **line, char **temp, int nl)
-{
-	*line = ft_substr(*temp, 0, nl + 1);
-	*temp = get_reminder(temp, nl + 1);
-	return (*line);
-}
-
-char	*get_reminder(char **str, int nl)
-{
-	char	*reminder;
-	int		rlen;
-
-	rlen = ft_strlen(*str + nl);
-	reminder = ft_substr(*str, nl, rlen);
-	free(*str);
-	*str = NULL;
-	return (reminder);
-}
-
-int	check_newline(char *buff)
-{
-	int	i = 0;
-	while(buff[i])
+	line = NULL;
+	if (!buffer[0])
 	{
-		if (buff[i] == '\n')
-			return (i);
-		i++;
+		int bytesread = read(fd, buffer,BUFFER_SIZE);
+		if (bytesread < 0)
+			return (NULL);
+		buffer[bytesread] = 0;
 	}
-	return (-1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t l;
-
-	l = 0;
-	while (s[l])
-		l++;
-	return (l);
+	line = reader(fd, buffer);
+	return (line);
 }
 
 /*int	main(void)

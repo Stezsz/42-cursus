@@ -13,22 +13,19 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stddef.h>
-# include <stdlib.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-char	*func(char **line, char **tmp, int nl);
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s1);
-char	*get_reminder(char **str, int nl);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *s);
-int		check_newline(char *buff);
-void	*ft_calloc(size_t count, size_t size);
-void	ft_bzero(void *s, size_t n);
+void	bufflord(char *str);
+size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*reader(int fd, char *buffer);
 
 #endif

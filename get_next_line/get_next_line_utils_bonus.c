@@ -12,90 +12,79 @@
 
 #include "get_next_line_bonus.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+size_t	ft_strlen(const char *str)
 {
-	char	*substr;
-	size_t	i;
+	size_t	counter;
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		return ((char *) ft_calloc(1, sizeof(char)));
-	if (ft_strlen(s) <= start + len)
-		substr = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
-	else
-		substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
-	while (s[start] && i < len)
-		substr[i++] = s[start++];
-	substr[i] = '\0';
-	return (substr);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	while (n--)
-		*((unsigned char *)(s + n)) = 0;
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*res;
-
-	res = malloc(size * count);
-	if (!res)
+	counter = 0;
+	if (!str)
 		return (0);
-	ft_bzero(res, size * count);
+	while (str[counter] != '\n' && str[counter])
+		counter++;
+	counter += (str[counter] == '\n');
+	return (counter);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*res;
+	int		a;
+	int		c;
+
+	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!res)
+		return (NULL);
+	a = 0;
+	c = 0;
+	while (s1 && s1[a])
+		res[c++] = s1[a++];
+	a = -1;
+	while (s2[++a] && s2[a] != '\n')
+		res[c++] = s2[a];
+	if (s2[a++] == '\n')
+		res[c++] = '\n';
+	res[c] = 0;
+	free(s1);
 	return (res);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	bufflord(char *str)
 {
-	char	*str;
-	int		s1_len;
-	int		s2_len;
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
+	j = 0;
+	while (str[i] && str[i] != '\n')
 		i++;
+	i += (str[i] == '\n');
+	while (str[i])
+	{
+		str[j++] = str[i];
+		str[i++] = 0;
 	}
-	i = 0;
-	while (s2[i])
-		str[s1_len++] = s2[i++];
-	str[s1_len] = '\0';
-	free((void *)s1);
-	s1 = NULL;
-	return (str);
+	str[j] = 0;
 }
 
-char	*ft_strdup(const char *s1)
+char	*reader(int fd, char *buffer)
 {
-	char	*copy;
-	size_t	s1_len;
+	char	*line;
 	int		i;
 
 	i = 0;
-	s1_len = ft_strlen(s1);
-	copy = malloc(sizeof(char) * (s1_len + 1));
-	if (!copy)
-		return (NULL);
-	while (s1[i])
+	line = NULL;
+	while (buffer[0] || read(fd, buffer, BUFFER_SIZE))
 	{
-		copy[i] = s1[i];
-		i++;
+		line = ft_strjoin(line, buffer);
+		i = 0;
+		while (buffer[i] && buffer[i] != '\n')
+			i++;
+		if (buffer[i] == '\n')
+		{
+			bufflord(buffer);
+			return (line);
+		}
+		buffer[read(fd, buffer, BUFFER_SIZE)] = 0;
 	}
-	copy[i] = '\0';
-	return (copy);
+	return (line);
 }
