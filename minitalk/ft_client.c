@@ -50,12 +50,12 @@ int	main(int ac, char **av)
 {
 	pid_t	server_pid;
 
-	server_pid = (pid_t)ft_atoi(av[1]);
 	if (ac != 3)
 	{
 		ft_printf("Usage: <server_pid> <message>\n", av[0]);
 		return (1);
 	}
+	server_pid = (pid_t)ft_atoi(av[1]);
 	if (server_pid <= 0)
 	{
 		ft_printf("Invalid server PID.\n");

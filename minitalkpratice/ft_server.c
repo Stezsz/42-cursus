@@ -1,4 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_server.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/24 16:45:00 by strodrig          #+#    #+#             */
+/*   Updated: 2024/09/24 16:45:00 by strodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_minitalk.h"
 
 void	signal_error(void)
 {
@@ -8,7 +20,21 @@ void	signal_error(void)
 
 void	handle_signal(int signal)
 {
+	static int	current_char;
+	static int	bit_count;
 
+	if (signal == SIGUSR1)
+		current_char |= (1 << bit_count);
+	bit_count++;
+	if (bit_count == 8)
+	{
+		if (current_char == '\0')
+			ft_printf("\n");
+		else
+			ft_printf("%c", current_char);
+		current_char = 0;
+		bit_count = 0;
+	}
 }
 
 int	main(void)
