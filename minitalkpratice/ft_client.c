@@ -47,7 +47,7 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 	{
-		ft_printf("Usage: <server_pid> <message>\n", av[0]);
+		ft_printf("Usage: %s <server_pid> <message>\n", av[0]);
 		return (1);
 	}
 	server_pid = (pid_t)ft_atoi(av[1]);
@@ -59,3 +59,6 @@ int	main(int ac, char **av)
 	send_string(server_pid, av[2]);
 	return (0);
 }
+
+
+
