@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:54:02 by strodrig          #+#    #+#             */
-/*   Updated: 2024/09/16 12:54:02 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/10/12 12:46:41 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,14 @@ void	send_bit(pid_t server_pid, char c, int bit)
 	}
 }
 
-void	send_char(pid_t server_pid, char c)
-{
-	send_bit(server_pid, c, 0);
-}
-
 void	send_string(pid_t server_pid, char *str)
 {
 	while (*str)
 	{
-		send_char(server_pid, *str);
+		send_bit(server_pid, *str, 0);
 		str++;
 	}
-	send_char(server_pid, '\0');
+	send_bit(server_pid, '\0', 0);
 }
 
 int	main(int ac, char **av)

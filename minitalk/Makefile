@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/16 12:54:11 by strodrig          #+#    #+#              #
-#    Updated: 2024/09/16 12:54:11 by strodrig         ###   ########.fr        #
+#    Updated: 2024/10/12 12:45:27 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_PRINTF  = $(LIBFTPRINTF_DIR)/ft_printf.o $(LIBFTPRINTF_DIR)/ft_atoi.o
 INC         = ft_minitalk.h
 
 # Compiling Variables:
-CC          = gcc
+CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -rf
 
