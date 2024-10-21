@@ -1,0 +1,3 @@
+cc -o push_swap algorithm/*.c checks/*.c operations/*.c stack/*.c utils/*.c push_swap.c -I includes
+
+./push_swap >> resultado.txt
