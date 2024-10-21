@@ -44,7 +44,7 @@ void	push_chunck_elems(t_stack *a, t_stack *b, int subdiv);
 int		get_min(t_stack *stack);
 int		get_max(t_stack *stack);
 int		get_elem_index(t_stack a, int elem);
-int		*get_chunck_elem(t_stack *a, int subdiv);
+int		*get_chunk_elem(t_stack *a, int subdiv);
 
 /* ------ Checks Functions ------ */
 void	get_input(t_stack *a, t_stack *b, char **av, int size);
@@ -57,12 +57,12 @@ int		is_sorted(t_stack stack);
 
 /* ---- Operations Functions ---- */
 void	ra_rotate_a(t_stack *a, int flag);
-void	sa_swap_a(t_stack *a, int flag);
+void	rb_rotate_b(t_stack *b, int flag);
 void	rra_reverse_rotate_a(t_stack *a, int flag);
+void	rrb_reverse_rotate_b(t_stack *b, int flag);
 void	pb_push_b(t_stack *a, t_stack *b);
 void	pa_push_a(t_stack *a, t_stack *b);
-void	rrb_reverse_rotate_b(t_stack *b, int flag);
-void	rb_rotate_b(t_stack *b, int flag);
+void	sa_swap_a(t_stack *a, int flag);
 
 /* ------ Stack Functions ------- */
 t_stack	*init_stack(void);
@@ -75,6 +75,7 @@ void	push_elem_bottom(t_stack *stack, t_node *elem);
 
 /* ------- Utils Functions ------ */
 void	ft_putstr(char *str);
+void	ft_swap(int *a, int *b);
 int		ft_atoi(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 

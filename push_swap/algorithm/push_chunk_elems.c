@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_chunck_elem.c                                  :+:      :+:    :+:   */
+/*   push_chunck_elems.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 16:44:24 by strodrig          #+#    #+#             */
-/*   Updated: 2024/10/21 16:44:24 by strodrig         ###   ########.fr       */
+/*   Created: 2024/10/21 16:43:20 by strodrig          #+#    #+#             */
+/*   Updated: 2024/10/21 16:43:20 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	*get_chunck_elem(t_stack *a, int subdiv)
+void	push_chunck_elems(t_stack *a, t_stack *b, int subdiv)
 {
-	t_node	*top;
-	t_node	*bottom;
-	int		i;
-	int		j;
+	int	*elem;
+	int	index;
+	int	i;
 
-	top = a->top;
-	bottom = a->bottom;
-	i = 0;
-	j = a->size - 1;
-	while (i++ <= j--)
+	elem = get_chunk_elem(a, subdiv);
+	while (elem)
 	{
-		if (top->value <= subdiv)
-			return (&top->value);
-		else if (bottom->value <= subdiv)
-			return (&bottom->value);
-		top = top->bellow;
-		bottom = bottom->above;
+		i = 0;
+		index = get_elem_index(*a, *elem);
+		if (index == -1)
+			return ;
+		if (index <= a->size / 2)
+			while (i++ < index)
+				ra_rotate_a(a, false);
+		else
+			while (i++ < a->size - index)
+				rra_reverse_rotate_a(a, false);
+		pb_push_b(a, b);
+		elem = get_chunk_elem(a, subdiv);
 	}
-	return (NULL);
 }

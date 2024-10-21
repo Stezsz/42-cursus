@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/21 17:26:39 by strodrig          #+#    #+#              #
-#    Updated: 2024/10/21 17:33:50 by strodrig         ###   ########.fr        #
+#    Updated: 2024/10/21 17:53:49 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,20 @@ CC			= cc
 FLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 
-STACK		= $(addprefix stack/, create_new_elem free_stack pop_elem poop_elem \
-			  push_elem push_elem_bottom stack_init)
-OPERATION	= $(addprefix operations/, pa_push_a pb_push_b ra_rotate_a \
-				  rb_rotate_b rr_ra_rb rra_reverse_rotate_a \
-				  rrb_reverse_rotate_b rrr_rra_rrb sa_swap_a sb_swap_b \
-				  ss_sa_sb)
+STACK		= $(addprefix stack/, new_elem free_stack pop_elem poop_elem \
+			  push_elem push_elem_bottom init_stack)
+OPERATION = $(addprefix operations/, pa_push_a pb_push_b ra_rotate_a \
+ 			  rb_rotate_b rra_reverse_rotate_a \
+ 			  rrb_reverse_rotate_b sa_swap_a \
+ 			  )
 CHECKS		= $(addprefix checks/, get_input is_sorted is_empty is_integer is_duplicates \
 			  is_greater_than_int put_error)
 UTILS		= $(addprefix utils/, ft_swap ft_atoi ft_strcmp ft_putstr)
-ALGO		= $(addprefix algorithm/, naive_sort chunks_sort sort_three \
-			  get_chunk_elem get_elem_index get_max get_min put_to_stack_a \
-			  put_chunk_elems)
-FILES		= $(STACK) $(OPERATION) $(UTILS) $(CHECKS) $(ALGO)
+ALGO		= $(addprefix algorithm/, basic_sort chunks_sort sort_three \
+			  get_chunk_elem get_elem_index get_max get_min push_to_stack_a \
+			  push_chunk_elems)
+FILES		= $(STACK) $(OPERATION) $(UTILS) $(CHECKS) $(ALGO) push_swap
+
 
 SRC			= $(FILES:=.c)
 OBJ			= $(FILES:=.o)
@@ -47,7 +48,7 @@ ifeq ($(DEBUG), 1)
    OPTS = -g
 endif
 
-.PHONY: all clean fclean re bonus clean_bonus fclean_bonus test norm
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
@@ -59,24 +60,6 @@ $(NAME):  $(OBJ) $(HEADER)
 %.o: %.c $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
 	@ $(CC) -Wall -Wextra -Werror $(OPTS) $(INCLUDES) -c $< -o $@
-
-norm:
-	@printf "$(CURSIVE)$(GRAY)"
-	@norminette
-	@printf "$(RESET)"
-
-test: all
-	@printf "\n$(YELLOW)	- Testing $(ARG) random numbers.. $(RESET)\n\n"
-	@sh testing/testing.sh $(ARG)
-
-bonus:
-	@$(MAKE) -C checker_bonus
-clean_bonus:
-	@$(MAKE) clean -C checker_bonus
-fclean_bonus:
-	@$(MAKE) fclean -C checker_bonus
-re_bonus:
-	@$(MAKE) re -C checker_bonus
 
 clean:
 	@ $(RM) $(OBJ)
