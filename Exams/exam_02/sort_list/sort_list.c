@@ -1,14 +1,14 @@
 #include "list.h"
 #include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
 
 t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
 {
-	int swap;
 	t_list *start;
-	start = lst;
+	int swap;
 
-	while (lst != NULL && lst->next !=NULL)
+	start = lst;
+	while (lst != NULL && lst->next != NULL)
 	{
 		if ((*cmp)(lst->data, lst->next->data) == 0)
 		{

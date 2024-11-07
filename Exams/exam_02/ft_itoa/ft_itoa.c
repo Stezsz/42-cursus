@@ -1,14 +1,14 @@
-#include <unistd.h>
 #include <stdlib.h>
 
-int	intlen(int n)
+int	intnbr(int nbr)
 {
 	int i = 0;
-	if (n == 0)
+
+	if (nbr == 0)
 		return 1;
-	while (n != 0)
+	while (nbr != 0)
 	{
-		n /= 10;
+		nbr /= 10;
 		i++;
 	}
 	return i;
@@ -23,24 +23,28 @@ int	ft_abs(int nbr)
 
 char	*ft_itoa(int nbr)
 {
-	int len;
 	int i = 0;
+	int len = intnbr(nbr);
 	char *result;
 
-	len = intlen(nbr);
 	if (nbr < 0)
 		i++;
-	len = len + i;
-	result = malloc((len + 1) * sizeof(char));
+	len += i;
+	result = malloc(sizeof(char) * (len + 1));
 	if (!result)
 		return (NULL);
 	result[0] = '-';
+	if (nbr == 0)
+	{
+		result[0] = '0';
+	}
 	result[len] = '\0';
-	while ((len - 1) >= i)
+	while (nbr != 0)
 	{
 		result[len - 1] = ft_abs(nbr % 10) + '0';
 		nbr /= 10;
-		len--;
+		len --;
 	}
 	return result;
 }
+

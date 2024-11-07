@@ -3,16 +3,20 @@
 
 char *ft_strncpy(char *s1, char *s2, int n)
 {
-	int i = -1;
+	int i = 0;
 
-	while (++i < n && s2[i])
+	while (s2[i] && i < n)
+	{
 		s1[i] = s2[i];
+		i++;
+	}
 	s1[i] = '\0';
-	return (s1);
+	return s1;
 }
 
 char    **ft_split(char *str)
 {
+
 	int i = 0;
 	int j = 0;
 	int k = 0;
