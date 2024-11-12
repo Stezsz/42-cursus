@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   sb_swap_b.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 14:39:24 by strodrig          #+#    #+#             */
-/*   Updated: 2024/11/12 14:51:25 by strodrig         ###   ########.fr       */
+/*   Created: 2024/11/12 14:34:16 by strodrig          #+#    #+#             */
+/*   Updated: 2024/11/12 14:34:16 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+/* sb: swap b - swap the first 2 elements at the top of stack b.
+ * (do nothing if there is only one of no elements). */
+void	sb_swap_b(t_stack *b, int flag)
 {
-	int	i;
-	int	sign;
-	int	result;
+	int	tmp;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
+	if (is_empty(b))
+		return ;
+	tmp = b->top->value;
+	b->top->value = b->top->bellow->value;
+	b->top->bellow->value = tmp;
+	if (!flag)
+		ft_putstr("sb\n");
 }

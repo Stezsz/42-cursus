@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   rr_ra_rb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 14:39:24 by strodrig          #+#    #+#             */
-/*   Updated: 2024/11/12 14:51:25 by strodrig         ###   ########.fr       */
+/*   Created: 2024/11/12 14:26:47 by strodrig          #+#    #+#             */
+/*   Updated: 2024/11/12 14:26:47 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+/* rr: rotate a and rotate b at the same time. */
+void	rr_ra_rb(t_stack *a, t_stack *b)
 {
-	int	i;
-	int	sign;
-	int	result;
-
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
+	ra_rotate_a(a, true);
+	rb_rotate_b(b, true);
+	ft_putstr("rr\n");
 }

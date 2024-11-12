@@ -13,7 +13,8 @@
 #include "push_swap.h"
 
 /* pa: push a - take the first element at the top of b and put it at top of a.
-* (do nothing if b is empty). */
+ * (do nothing if b is empty). */
+
 void	pa_push_a(t_stack *a, t_stack *b)
 {
 	if (is_empty(b))

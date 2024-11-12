@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	push_chunck_elems(t_stack *a, t_stack *b, int subdiv)
+void	push_chunk_elems(t_stack *a, t_stack *b, int subdiv)
 {
 	int	*elem;
 	int	index;

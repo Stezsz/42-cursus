@@ -14,8 +14,8 @@
 
 int	get_min(t_stack *stack)
 {
-	t_node		*tmp;
-	int			min;
+	t_node	*tmp;
+	int		min;
 
 	tmp = stack->top;
 	min = tmp->value;

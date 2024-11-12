@@ -30,5 +30,5 @@ int	main(int ac, char **av)
 		chunks_sort(a, b);
 	free_stack(a);
 	free_stack(b);
-	exit(EXIT_SUCCESS);
+	exit (EXIT_SUCCESS);
 }

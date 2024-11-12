@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/21 17:26:39 by strodrig          #+#    #+#              #
-#    Updated: 2024/10/21 17:53:49 by strodrig         ###   ########.fr        #
+#    Updated: 2024/11/12 14:53:09 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,12 +54,12 @@ all: $(NAME)
 
 $(NAME):  $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(OBJ) $(INCLUDES) $(OPTS) -o $(NAME)
+	@ $(CC) $(FLAGS) $(OBJ) $(INCLUDES) $(OPTS) -o $(NAME)
 	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
 
 %.o: %.c $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
-	@ $(CC) -Wall -Wextra -Werror $(OPTS) $(INCLUDES) -c $< -o $@
+	@ $(CC) $(FLAGS) $(OPTS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@ $(RM) $(OBJ)

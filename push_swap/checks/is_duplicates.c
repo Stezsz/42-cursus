@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+/* a function to check if there's duplicates */
+
 int	is_duplicates(char **av, int size)
 {
 	int	i;

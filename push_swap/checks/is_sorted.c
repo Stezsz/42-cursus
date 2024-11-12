@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+/* is_sorted: a function to check if stack is sorted or not */
 int	is_sorted(t_stack stack)
 {
 	if (is_empty(&stack))

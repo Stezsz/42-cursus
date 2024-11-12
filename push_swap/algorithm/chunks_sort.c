@@ -29,6 +29,6 @@ void	chunks_sort(t_stack *a, t_stack *b)
 	max = get_max(a);
 	subdiv = (min + max) / div;
 	while (!is_empty(a))
-		push_chunck_elems(a, b, subdiv * i++);
+		push_chunk_elems(a, b, subdiv * i++);
 	push_to_stack_a(a, b);
 }

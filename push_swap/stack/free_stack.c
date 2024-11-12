@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+/* free_stack: a function to free everything before exiting */
 void	free_stack(t_stack *stack)
 {
 	while (!is_empty(stack))
