@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/21 17:26:39 by strodrig          #+#    #+#              #
-#    Updated: 2024/11/12 14:53:09 by strodrig         ###   ########.fr        #
+#    Updated: 2024/11/13 12:59:07 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,48 +18,52 @@ RM			= rm -rf
 
 STACK		= $(addprefix stack/, new_elem free_stack pop_elem poop_elem \
 			  push_elem push_elem_bottom init_stack)
-OPERATION = $(addprefix operations/, pa_push_a pb_push_b ra_rotate_a \
- 			  rb_rotate_b rra_reverse_rotate_a \
- 			  rrb_reverse_rotate_b sa_swap_a \
- 			  )
+OPERATION	= $(addprefix operations/, pa_push_a pb_push_b ra_rotate_a \
+				  rb_rotate_b rr_ra_rb rra_reverse_rotate_a \
+				  rrb_reverse_rotate_b rrr_rra_rrb sa_swap_a sb_swap_b \
+				  ss_sa_sb)
 CHECKS		= $(addprefix checks/, get_input is_sorted is_empty is_integer is_duplicates \
 			  is_greater_than_int put_error)
 UTILS		= $(addprefix utils/, ft_swap ft_atoi ft_strcmp ft_putstr)
 ALGO		= $(addprefix algorithm/, basic_sort chunks_sort sort_three \
 			  get_chunk_elem get_elem_index get_max get_min push_to_stack_a \
 			  push_chunk_elems)
-FILES		= $(STACK) $(OPERATION) $(UTILS) $(CHECKS) $(ALGO) push_swap
-
+FILES		= $(addprefix srcs/, push_swap $(STACK) $(OPERATION) $(UTILS) $(CHECKS) $(ALGO))
 
 SRC			= $(FILES:=.c)
 OBJ			= $(FILES:=.o)
 HEADER		= $(addprefix includes/, push_swap.h)
 INCLUDES	= -I includes
 
-#Colors:
+# Colors:
 GREEN		=	\e[92;5;118m
 YELLOW		=	\e[93;5;226m
 GRAY		=	\e[33;2;37m
 RESET		=	\e[0m
 CURSIVE		=	\e[33;3m
 
-#Debug
+# Debug
 ifeq ($(DEBUG), 1)
    OPTS = -g
 endif
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re norm
 
 all: $(NAME)
 
-$(NAME):  $(OBJ) $(HEADER)
+$(NAME): $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(FLAGS) $(OBJ) $(INCLUDES) $(OPTS) -o $(NAME)
+	@ $(CC) $(OBJ) $(INCLUDES) $(OPTS) -o $(NAME)
 	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
 
 %.o: %.c $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
-	@ $(CC) $(FLAGS) $(OPTS) $(INCLUDES) -c $< -o $@
+	@ $(CC) -Wall -Wextra -Werror $(OPTS) $(INCLUDES) -c $< -o $@
+
+norm:
+	@printf "$(CURSIVE)$(GRAY)"
+	@norminette
+	@printf "$(RESET)"
 
 clean:
 	@ $(RM) $(OBJ)
@@ -72,3 +76,4 @@ fclean: clean
 	@printf "$(YELLOW)    - Executable removed.$(RESET)\n"
 
 re: fclean all
+
