@@ -38,6 +38,7 @@ typedef struct s_stack
 /* ----- Algorithm Functions ---- */
 void	basic_sort(t_stack *a, t_stack *b);
 void	chunks_sort(t_stack *a, t_stack *b);
+void	generic_sort(t_stack *a, t_stack *b);
 int		*get_chunk_elem(t_stack *a, int subdiv);
 int		get_elem_index(t_stack a, int elem);
 int		get_max(t_stack *stack);
@@ -80,6 +81,8 @@ void	push_elem(t_stack *stack, t_node *elem);
 /* ------- Utils Functions ------ */
 int		ft_atoi(const char *str);
 void	ft_putstr(char *str);
+char	**ft_split(const char *s, char c);
+void	free_split(char **split);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_swap(int *a, int *b);
 

@@ -6,7 +6,7 @@
 #    By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/21 17:26:39 by strodrig          #+#    #+#              #
-#    Updated: 2024/11/13 12:59:07 by strodrig         ###   ########.fr        #
+#    Updated: 2024/11/25 20:41:41 by strodrig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ OPERATION	= $(addprefix operations/, pa_push_a pb_push_b ra_rotate_a \
 				  ss_sa_sb)
 CHECKS		= $(addprefix checks/, get_input is_sorted is_empty is_integer is_duplicates \
 			  is_greater_than_int put_error)
-UTILS		= $(addprefix utils/, ft_swap ft_atoi ft_strcmp ft_putstr)
-ALGO		= $(addprefix algorithm/, basic_sort chunks_sort sort_three \
+UTILS		= $(addprefix utils/, ft_split ft_swap ft_atoi ft_strcmp ft_putstr)
+ALGO		= $(addprefix algorithm/, generic_sort basic_sort chunks_sort sort_three \
 			  get_chunk_elem get_elem_index get_max get_min push_to_stack_a \
 			  push_chunk_elems)
 FILES		= $(addprefix srcs/, push_swap $(STACK) $(OPERATION) $(UTILS) $(CHECKS) $(ALGO))
