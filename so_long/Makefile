@@ -17,10 +17,12 @@ FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 MLX_PATH = ./mlx
+PRINTF_PATH = ./ft_printf
 
-INCLUDE = -I$(MLX_PATH)
+INCLUDE = -I$(MLX_PATH) -I$(PRINTF_PATH)
 
 LIBMLX = -L$(MLX_PATH) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
+LIBPRINTF = $(PRINTF_PATH)/libftprintf.a
 
 FILES = so_long src/checker/check_map
 
@@ -44,10 +46,13 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(LIBPRINTF) $(OBJ)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@$(CC) $(OBJ) $(INCLUDE) $(LIBMLX)  -o $(NAME)
+	@$(CC) $(OBJ) $(INCLUDE) $(LIBMLX) $(LIBPRINTF) -o $(NAME)
 	@printf "$(_SUCCESS) $(GREEN)- Executable ready.\n$(RESET)"
+
+$(LIBPRINTF):
+	@make -C $(PRINTF_PATH) >/dev/null 2>&1
 
 %.o: %.c $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Making object file $(notdir $@) from source file $(notdir $<) ... $(RESET)\n"
@@ -55,11 +60,13 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)
+	@make clean -C $(PRINTF_PATH) >/dev/null 2>&1
 	@printf "$(CURSIVE)$(GRAY)	- Removing object files ... $(RESET)\n"
 	@printf "$(YELLOW) - Object files removed.$(RESET)\n"
 
 fclean: clean
 	@$(RM) $(NAME)
+	@make fclean -C $(PRINTF_PATH) >/dev/null 2>&1
 	@printf "$(CURSIVE)$(GRAY)	- Removing $(NAME)... $(RESET)\n"
 	@printf "$(YELLOW) - Executable removed.$(RESET)\n"
 

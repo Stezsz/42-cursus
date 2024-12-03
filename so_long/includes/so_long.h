@@ -44,16 +44,15 @@ typedef struct s_map
 
 typedef struct s_program
 {
-	void		*mlx;          // Ponteiro para a conexão com o MLX (MiniLibX).
-	void		*win_ptr;      // Ponteiro para a janela criada.
-	void		*img_ptr;      // Ponteiro para a imagem a ser desenhada.
-	int			img_size;      // Tamanho da imagem (sprites).
-	t_map		map;           // Dados do mapa atual.
-	int			fd;            // File descriptor para o arquivo do mapa.
-	int			can_exit;      // Flag para indicar se o jogador pode sair.
-	size_t		mv_count;      // Contador de movimentos do jogador.
+	void		*mlx; // Ponteiro para a conexão com o MLX (MiniLibX).
+	void		*win_ptr; // Ponteiro para a janela criada.
+	void		*img_ptr; // Ponteiro para a imagem a ser desenhada.
+	int			img_size; // Tamanho da imagem (sprites).
+	t_map		map; // Dados do mapa atual.
+	int			fd; // File descriptor para o arquivo do mapa.
+	int			can_exit; // Flag para indicar se o jogador pode sair.
+	size_t		mv_count; // Contador de movimentos do jogador.
 }				t_program;
-
 
 /* ------- Checker -------*/
 void	check_map(char *file_name, t_program *game);

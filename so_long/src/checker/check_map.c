@@ -15,8 +15,8 @@
 void	check_map(char *file_name, t_program *game)
 {
 	int	fd;
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
+
+	fd = open(file_name, O_DIRECTORY);
+	if (fd != -1)
 		exit(EXIT_FAILURE);
-	game->fd = fd;
 }
