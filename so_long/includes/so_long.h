@@ -1,0 +1,61 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 13:35:18 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/02 13:35:18 by strodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "mlx.h"
+# include "../ft_printf/ft_printf.h"
+
+/* ------- MAP ------- */
+# define WALL '1'
+# define PLAYER 'P'
+# define EXIT 'E'
+# define COLLECTIBLE 'C'
+# define FLOOR '0'
+
+typedef struct s_vector
+{
+	int	x;
+	int	y;
+}				t_vector;
+
+typedef struct s_map
+{
+	char		**map;
+	int			col;
+	int			row;
+	int			collectibles;
+	t_vector	player;
+}				t_map;
+
+typedef struct s_program
+{
+	void		*mlx;          // Ponteiro para a conexão com o MLX (MiniLibX).
+	void		*win_ptr;      // Ponteiro para a janela criada.
+	void		*img_ptr;      // Ponteiro para a imagem a ser desenhada.
+	int			img_size;      // Tamanho da imagem (sprites).
+	t_map		map;           // Dados do mapa atual.
+	int			fd;            // File descriptor para o arquivo do mapa.
+	int			can_exit;      // Flag para indicar se o jogador pode sair.
+	size_t		mv_count;      // Contador de movimentos do jogador.
+}				t_program;
+
+
+/* ------- Checker -------*/
+void	check_map(char *file_name, t_program *game);
+
+#endif
