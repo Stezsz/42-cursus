@@ -26,6 +26,7 @@ LIBPRINTF = $(PRINTF_PATH)/libftprintf.a
 
 FILES = so_long src/checker/check_map src/checker/check_filename \
 				src/checker/ft_strlen src/checker/ft_strcmp src/checker/map_error \
+				src/checker/get_map
 
 
 SRC = $(FILES:=.c)
