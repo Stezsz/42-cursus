@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   map_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:42:52 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 11:42:52 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/03 13:28:24 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/03 13:28:24 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
-void	check_map(char *file_name, t_program *game)
+void	error_filename(char *file_name)
 {
-	int	fd;
-
-	fd = open(file_name, O_DIRECTORY);
-	if (fd != -1)
-		exit(EXIT_FAILURE);
-	if (check_filename(file_name, ".ber") != 0)
-		error_filename(file_name);
-	get_map(file_name, game);
+	ft_printf("%s%s: Invalid file extention.\n",
+		RED, file_name);
+	exit(EXIT_FAILURE);
 }

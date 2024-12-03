@@ -24,7 +24,9 @@ INCLUDE = -I$(MLX_PATH) -I$(PRINTF_PATH)
 LIBMLX = -L$(MLX_PATH) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 LIBPRINTF = $(PRINTF_PATH)/libftprintf.a
 
-FILES = so_long src/checker/check_map
+FILES = so_long src/checker/check_map src/checker/check_filename \
+				src/checker/ft_strlen src/checker/ft_strcmp src/checker/map_error \
+
 
 SRC = $(FILES:=.c)
 OBJ = $(FILES:=.o)

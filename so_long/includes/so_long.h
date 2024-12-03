@@ -27,6 +27,12 @@
 # define COLLECTIBLE 'C'
 # define FLOOR '0'
 
+/* -------- COLORS -------- */
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define END "\033[0m"
+
 typedef struct s_vector
 {
 	int	x;
@@ -56,5 +62,9 @@ typedef struct s_program
 
 /* ------- Checker -------*/
 void	check_map(char *file_name, t_program *game);
+int		check_filename(const char *map, const char *to_find);
+int		ft_strcmp(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
+void	error_filename(char *file_name);
 
 #endif

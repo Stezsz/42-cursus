@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:42:52 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 11:42:52 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/03 13:19:47 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/03 13:19:47 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
-void	check_map(char *file_name, t_program *game)
+size_t	ft_strlen(const char *s)
 {
-	int	fd;
+	size_t	i;
 
-	fd = open(file_name, O_DIRECTORY);
-	if (fd != -1)
-		exit(EXIT_FAILURE);
-	if (check_filename(file_name, ".ber") != 0)
-		error_filename(file_name);
-	get_map(file_name, game);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
