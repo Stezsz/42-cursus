@@ -14,27 +14,29 @@
 
 void	get_map(char *file_name, t_program *game)
 {
-	int		fd;
-	int		i;
+	int	fd;
+	int	i;
 
 	i = 0;
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error\n");
+		ft_printf("%s%s: No such file or directory.\n", RED, file_name);
 		exit(EXIT_FAILURE);
 	}
 	game->map.row = map_len(fd);
 	close(fd);
 	game->map.map = malloc(sizeof(char *) * (game->map.row + 1));
 	if (!game->map.map)
-	{
-		perror("Error\n");
 		exit(EXIT_FAILURE);
-	}
 	game->map.map[game->map.row] = 0;
 	fd = open(file_name, O_RDONLY);
 	while (i < game->map.row)
-		game->map.map[i++] = get_next_line(fd);
+	{
+		game->map.map[i] = get_next_line(fd);
+		if (game->map.map[i][ft_strlen(game->map.map[i]) - 1] == '\n')
+			game->map.map[i][ft_strlen(game->map.map[i]) - 1] = '\0';
+		i++;
+	}
 	close(fd);
 }

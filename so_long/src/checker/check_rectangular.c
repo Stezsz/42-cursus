@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_rectangular.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 11:42:52 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 11:42:52 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/03 16:59:44 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/03 16:59:44 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/so_long.h"
 
-void	check_map(char *file_name, t_program *game)
+int	check_rectangular(t_program *game)
 {
-	int	fd;
+	int	i;
+	int	len;
 
-	fd = open(file_name, O_DIRECTORY);
-	if (fd != -1)
-		exit(EXIT_FAILURE);
-	if (check_filename(file_name, ".ber") != 0)
-		error_filename(file_name);
-	get_map(file_name, game);
-	if (check_rectangular(game) != 0)
-		error_rectangular(game, file_name);
-	if (check_walls(game) != 0)
-		error_walls(game, file_name);
-	if (check_elements(game) != 0)
-		error_elements(game, file_name);
+	len = ft_strlen(game->map.map[0]);
+	i = 1;
+	while (i < game->map.row)
+	{
+		if (ft_strlen(game->map.map[i]) != len)
+			return (1);
+		i++;
+	}
+	return (0);
 }

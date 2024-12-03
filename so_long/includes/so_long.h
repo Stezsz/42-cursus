@@ -61,13 +61,24 @@ typedef struct s_program
 }				t_program;
 
 /* ------- Checker -------*/
-void	check_map(char *file_name, t_program *game);
-void	error_filename(char *file_name);
-void	get_map(char *file_name, t_program *game);
+int		check_elements(t_program *game);
 int		check_filename(const char *map, const char *to_find);
+void	check_map(char *file_name, t_program *game);
+int		check_rectangular(t_program *game);
+int		check_walls(t_program *game);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
+void	get_map(char *file_name, t_program *game);
 int		map_len(int fd);
+
+/* ------- Src -------*/
+void	free_map(t_program *game);
+
+/* ------- Error -------*/
+void	error_filename(char *file_name);
+void	error_walls(t_program *game, char *file_name);
+void	error_rectangular(t_program *game, char *file_name);
+void	error_elements(t_program *game, char *file_name);
 
 /* ---- get_next_line functions ---- */
 char	*get_next_line(int fd);
