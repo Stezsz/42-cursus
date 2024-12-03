@@ -15,28 +15,26 @@
 void	get_map(char *file_name, t_program *game)
 {
 	int		fd;
-	int		result;
-	int		line_count;
-	char	*line;
+	int		i;
 
+	i = 0;
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_printf("%sError\n", RED);
+		perror("Error\n");
 		exit(EXIT_FAILURE);
 	}
-
-	line_count = 0;
-	while ((result = get_next_line(fd, &line)) > 0)
+	game->map.row = map_len(fd);
+	close(fd);
+	game->map.map = malloc(sizeof(char *) * (game->map.row + 1));
+	if (!game->map.map)
 	{
-		game->map[line_count] = line;
-		line_count++;
-	}
-	if (result == -1)
-	{
-		ft_printf("%sError\n", RED);
+		perror("Error\n");
 		exit(EXIT_FAILURE);
 	}
-	game->map[line_count] = NULL;
+	game->map.map[game->map.row] = 0;
+	fd = open(file_name, O_RDONLY);
+	while (i < game->map.row)
+		game->map.map[i++] = get_next_line(fd);
 	close(fd);
 }

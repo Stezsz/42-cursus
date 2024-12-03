@@ -67,6 +67,7 @@ void	get_map(char *file_name, t_program *game);
 int		check_filename(const char *map, const char *to_find);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
+int		map_len(int fd);
 
 /* ---- get_next_line functions ---- */
 char	*get_next_line(int fd);

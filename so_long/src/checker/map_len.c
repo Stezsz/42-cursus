@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   map_len.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 13:34:40 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/02 13:34:40 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/03 15:59:44 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/03 15:59:44 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/so_long.h"
+#include "../../includes/so_long.h"
 
-int	main(int ac, char **av)
+int	map_len(int fd)
 {
-	t_program	game;
+	int		len;
+	char	*line;
 
-	if (ac != 2)
+	len = 0;
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		ft_printf("Usage: ./so_long <file name>\n");
-		exit(EXIT_FAILURE);
+		len++;
+		free(line);
+		line = get_next_line(fd);
 	}
-	check_map(av[1], &game);
-	return (EXIT_SUCCESS);
+	free(line);
+	return (len);
 }
