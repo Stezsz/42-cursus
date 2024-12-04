@@ -22,7 +22,7 @@ void	check_map(char *file_name, t_program *game)
 	if (check_filename(file_name, ".ber") != 0)
 		error_filename(file_name);
 	get_map(file_name, game);
-	if (check_rectangular(game) != 0)
+	if (check_rectangular(*game) != 0)
 		error_rectangular(game, file_name);
 	if (check_walls(game) != 0)
 		error_walls(game, file_name);

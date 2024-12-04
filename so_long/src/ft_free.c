@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_walls.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 17:00:03 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 17:00:03 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 11:41:42 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 11:41:42 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
-int	check_walls(t_program *game)
+void	ft_free(t_program *game, char *msg)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	game->map.col = ft_strlen(game->map.map[0]) - 1;
 	while (i < game->map.row)
 	{
-		j = 0;
-		while (game->map.map[i][j] != '\n' && game->map.map[i][j]
-			&& j < game->map.col)
-		{
-			if (i == 0 || i == game->map.row - 1)
-				if (game->map.map[i][j] != '1')
-					return (1);
-			if (j == 0 || j == game->map.col - 1)
-				if (game->map.map[i][j] != '1')
-					return (1);
-			j++;
-		}
+		free(game->map.map[i]);
 		i++;
 	}
-	return (0);
+	free(game->map.map);
+	mlx_destroy_window(game->mlx, game->win_ptr);
+	if (ft_strcmp(msg, "Player won!") == 0)
+		ft_printf("\n%s%s\n", GREEN,
+			"⊱ ──────────────── Congratulations! You won! ──────────────── ⊰");
+	else
+		ft_printf("\n%s%s\n", RED, msg);
+	exit(EXIT_SUCCESS);
 }

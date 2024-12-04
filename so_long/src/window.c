@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_rectangular.c                                :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 16:59:44 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 16:59:44 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 11:39:18 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 11:39:18 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "../includes/so_long.h"
 
-int	check_rectangular(t_program game)
+int	ft_close(t_program *game)
 {
-	int	row;
-	int	len;
-	int	line_len;
+	ft_free(game, "Window closed!");
+	return (EXIT_SUCCESS);
+}
 
-	row = 0;
-	line_len = ft_strlen(game.map.map[row]);
-	while (game.map.map[row] != NULL)
-	{
-		len = ft_strlen(game.map.map[row]);
-		if (line_len != len)
-			return (1);
-		row++;
-	}
-	return (0);
+void	ft_new_window(t_program *game)
+{
+	game->win_ptr = mlx_new_window(game->mlx, game->map.col * 32,
+			game->map.row * 32, "so_long");
+	mlx_hook(game->win_ptr, WIN_CLOSE, 0, ft_close, game);
 }

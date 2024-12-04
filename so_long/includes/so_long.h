@@ -20,6 +20,14 @@
 # include "mlx.h"
 # include "../ft_printf/ft_printf.h"
 
+/* ------- KEY VALUES ------- */
+# define RIGHT_KEY 2
+# define LEFT_KEY 0
+# define UP_KEY 13
+# define DOWN_KEY 1
+# define ESC_KEY 53
+# define WIN_CLOSE 17
+
 /* ------- MAP ------- */
 # define WALL '1'
 # define PLAYER 'P'
@@ -64,7 +72,7 @@ typedef struct s_program
 int		check_elements(t_program *game);
 int		check_filename(const char *map, const char *to_find);
 void	check_map(char *file_name, t_program *game);
-int		check_rectangular(t_program *game);
+int		check_rectangular(t_program game);
 int		check_walls(t_program *game);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);
@@ -73,6 +81,12 @@ int		map_len(int fd);
 
 /* ------- Src -------*/
 void	free_map(t_program *game);
+void	ft_free(t_program *game, char *msg);
+void	ft_move_player(t_program *game, int x, int y);
+int		ft_input(int key, void *param);
+void	ft_render(t_program game);
+void	ft_new_window(t_program *game);
+int		ft_close(t_program *game);
 
 /* ------- Error -------*/
 void	error_filename(char *file_name);

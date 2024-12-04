@@ -32,11 +32,6 @@ void	get_map(char *file_name, t_program *game)
 	game->map.map[game->map.row] = 0;
 	fd = open(file_name, O_RDONLY);
 	while (i < game->map.row)
-	{
-		game->map.map[i] = get_next_line(fd);
-		if (game->map.map[i][ft_strlen(game->map.map[i]) - 1] == '\n')
-			game->map.map[i][ft_strlen(game->map.map[i]) - 1] = '\0';
-		i++;
-	}
+		game->map.map[i++] = get_next_line(fd);
 	close(fd);
 }
