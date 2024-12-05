@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_walls.c                                      :+:      :+:    :+:   */
+/*   check_ecp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 17:00:03 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 17:00:03 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/05 12:18:17 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/05 12:18:17 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "so_long.h"
 
-int	check_walls(t_program *game)
+int	check_ecp(t_program game)
 {
+	int	e;
+	int	c;
+	int	p;
 	int	i;
 	int	j;
 
+	e = 0;
+	c = 0;
+	p = 0;
 	i = 0;
-	game->map.col = ft_strlen(game->map.map[0]) - 1;
-	while (i < game->map.row)
+	while (game.map.map[i])
 	{
 		j = 0;
-		while (game->map.map[i][j] != '\n' && game->map.map[i][j]
-			&& j < game->map.col)
+		while (game.map.map[i][j])
 		{
-			if (i == 0 || i == game->map.row - 1)
-				if (game->map.map[i][j] != '1')
-					return (1);
-			if (j == 0 || j == game->map.col - 1)
-				if (game->map.map[i][j] != '1')
-					return (1);
+			if (game.map.map[i][j] == 'E')
+				e++;
+			if (game.map.map[i][j] == 'C')
+				c++;
+			if (game.map.map[i][j] == 'P')
+				p++;
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	ft_printf("E: %d, C: %d, P: %d\n", e, c, p); // Debug
+	return (e == 1 && c > 0 && p == 1);
 }

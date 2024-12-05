@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_extention.c                                  :+:      :+:    :+:   */
+/*   check_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 13:17:58 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 13:17:58 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 23:58:25 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 23:58:25 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "so_long.h"
 
-int	check_filename(const char *file_name, const char *to_find)
+int	check_player(t_program game)
 {
-	size_t	to_find_len;
-	size_t	file_name_len;
+	int	p;
+	int	i;
+	int	j;
 
-	to_find_len = ft_strlen(to_find);
-	file_name_len = ft_strlen(file_name);
-	while (file_name_len > to_find_len)
+	i = 0;
+	p = 0;
+	while (game.map.map[i])
 	{
-		file_name++;
-		file_name_len--;
+		j = 0;
+		while (game.map.map[i][j])
+		{
+			if (game.map.map[i][j] == PLAYER)
+				p++;
+			j++;
+		}
+		i++;
 	}
-	return (ft_strcmp(file_name, to_find));
+	return (p == 1);
 }

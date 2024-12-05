@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_rectangular.c                                :+:      :+:    :+:   */
+/*   check_characters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 16:59:44 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 16:59:44 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 23:44:07 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 23:44:07 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "so_long.h"
 
-int	check_rectangular(t_program game)
+static int	in_set(char c, char *set)
+{
+	while (*set)
+	{
+		if (c == *set)
+			return (1);
+		set++;
+	}
+	return (0);
+}
+
+int	check_characters(t_program game)
 {
 	int	row;
-	int	len;
-	int	line_len;
+	int	col;
 
 	row = 0;
-	line_len = ft_strlen(game.map.map[row]);
-	while (game.map.map[row] != NULL)
+	while (game.map.map[row])
 	{
-		len = ft_strlen(game.map.map[row]);
-		if (line_len != len)
-			return (1);
+		col = 0;
+		while (game.map.map[row][col] != '\n' && game.map.map[row][col] != '\0')
+		{
+			if (!in_set(game.map.map[row][col], "01PCE"))
+				return (1);
+			col++;
+		}
 		row++;
 	}
 	return (0);

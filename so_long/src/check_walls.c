@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   check_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 17:41:39 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/04 17:41:39 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/05 00:15:24 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/05 00:15:24 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int ac, char **av)
+int	check_walls(t_program *game)
 {
-	t_program	game;
+	int	i;
+	int	j;
 
-	if (ac != 2)
+	i = 0;
+	game->map.cols = ft_strlen(game->map.map[0]);
+	while (i < game->map.rows)
 	{
-		write(1, "Usage: ./so_long [file.ber]\n", 28);
-		exit(1);
+		j = 0;
+		while (j < game->map.cols)
+		{
+			if (i == 0 || i == game->map.rows - 1)
+			{
+				if (game->map.map[i][j] != WALL)
+					return (1);
+			}
+			else if (j == 0 || j == game->map.cols - 1)
+			{
+				if (game->map.map[i][j] != WALL)
+					return (1);
+			}
+			j++;
+		}
+		i++;
 	}
-	check_map(av[1], &game);
+	return (0);
 }

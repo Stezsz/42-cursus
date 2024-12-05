@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_len.c                                          :+:      :+:    :+:   */
+/*   check_extension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 15:59:44 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 15:59:44 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 22:37:51 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 22:37:51 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "so_long.h"
 
-int	map_len(int fd)
+int	check_extension(const char *file, const char *ext)
 {
-	int		len;
-	char	*line;
+	size_t	len;
+	size_t	ext_len;
 
-	len = 0;
-	line = get_next_line(fd);
-	while (line != NULL)
+	len = ft_strlen(file);
+	ext_len = ft_strlen(ext);
+	while (len > ext_len)
 	{
-		len++;
-		free(line);
-		line = get_next_line(fd);
+		file++;
+		len--;
 	}
-	free(line);
-	return (len);
+	return (ft_strcmp(file, ext));
 }

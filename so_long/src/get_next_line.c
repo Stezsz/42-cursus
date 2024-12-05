@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 13:58:30 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 13:58:30 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 22:51:15 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 22:51:15 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "so_long.h"
 
 char	*ft_strdup(const char *s1)
 {

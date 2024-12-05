@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   check_rectangular.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 16:43:09 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/03 16:43:09 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/04 23:37:07 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/04 23:37:07 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
-void	free_map(t_program *game)
+int	check_rectangular(t_program game)
 {
-	int	i;
+	int	row;
+	int	len;
+	int	line_len;
 
-	i = 0;
-	while (game->map.map[i])
-		free(game->map.map[i++]);
-	free(game->map.map);
-	exit(EXIT_FAILURE);
+	row = 0;
+	line_len = ft_strlen(game.map.map[row]);
+	while (game.map.map[row])
+	{
+		len = ft_strlen(game.map.map[row]);
+		if (len != line_len)
+			return (1);
+		row++;
+	}
+	return (0);
 }
