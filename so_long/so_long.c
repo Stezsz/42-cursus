@@ -22,4 +22,12 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	check_map(av[1], &game);
+	game.mlx = mlx_init();
+	new_window(&game);
+	render_map(game);
+	ft_printf("%s─────────────────── So Long! ───────────────────\n", YELLOW);
+	game.moves = 0;
+	mlx_hook(game.win, KEY_PRESS, 1L << 0, ft_input, &game);
+	mlx_loop(game.mlx);
+	return (0);
 }

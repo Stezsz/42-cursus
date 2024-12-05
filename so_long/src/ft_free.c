@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_ecp.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 12:18:17 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/05 12:18:17 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/05 16:21:37 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/05 16:21:37 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	count_ecp(t_program game, int *e, int *c, int *p)
+void	ft_free(t_program *game, char *msg)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (game.map.map[i])
+	while (game->map.map[i])
 	{
-		j = 0;
-		while (game.map.map[i][j])
-		{
-			if (game.map.map[i][j] == 'E')
-				(*e)++;
-			else if (game.map.map[i][j] == 'C')
-				(*c)++;
-			else if (game.map.map[i][j] == 'P')
-				(*p)++;
-			j++;
-		}
+		free(game->map.map[i]);
 		i++;
 	}
-}
-
-int	check_ecp(t_program game)
-{
-	int	e;
-	int	c;
-	int	p;
-
-	e = 0;
-	c = 0;
-	p = 0;
-	count_ecp(game, &e, &c, &p);
-	return (e == 1 && c > 0 && p == 1);
+	free(game->map.map);
+	mlx_destroy_window(game->mlx, game->win);
+	if (ft_strcmp(msg, "Player Win!") == 0)
+		ft_printf("%s──────────────── Player Win! ────────────────\n", GREEN);
+	else
+		ft_printf("%s%s\n", RED, msg);
+	exit(0);
 }

@@ -27,8 +27,8 @@
 # define LEFT_KEY 97
 # define DOWN_KEY 115
 # define UP_KEY 119
-# define ESC_KEY 27
-# define WIN_CLOSE 1
+# define ESC_KEY 65307
+# define WIN_CLOSE 17
 
 /* -------- MAP VALUES -------- */
 # define WALL '1'
@@ -36,6 +36,7 @@
 # define COLLECTIBLE 'C'
 # define EXIT 'E'
 # define EMPTY '0'
+# define SQUARE 32
 
 /* -------- COLORS -------- */
 # define RED "\033[0;31m"
@@ -64,7 +65,7 @@ typedef struct s_program
 	void	*mlx;
 	void	*win;
 	void	*img;
-	int		img_sizel;
+	int		img_size;
 	int		fd;
 	int		can_exit;
 	t_map	map;
@@ -74,6 +75,20 @@ typedef struct s_program
 /* -------- SRC -------- */
 void	check_map(char *file, t_program *game);
 void	read_map(char *file, t_program *game);
+void	new_window(t_program *game);
+void	ft_free(t_program *game, char *msg);
+void	render_map(t_program game);
+void	render_image(t_program game, int x, int y);
+int		close_window(t_program *game);
+int		ft_input(int key, void	*param);
+char	*ft_get_path(char c, int can_exit);
+void	ft_swap(char *a, char *b);
+void	move_up(t_program *game);
+void	move_down(t_program *game);
+void	move_left(t_program *game);
+void	move_right(t_program *game);
+void	get_player_position(t_program *game);
+void	get_collectibles(t_program *game);
 
 /* -------- CHECKER -------- */
 int		check_extension(const char *file, const char *ext);

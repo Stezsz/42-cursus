@@ -27,7 +27,8 @@ LIBPRINTF = $(PRINTF_PATH)/libftprintf.a
 FILES = so_long src/check_map src/error src/utils src/check_extension \
 				src/read_map src/get_next_line src/check_rectangular \
 				src/check_characters src/check_player src/check_walls \
-				src/check_ecp
+				src/check_ecp src/window src/ft_free src/render src/moves \
+				src/player_moves src/get_player_position
 
 SRC = $(FILES:=.c)
 OBJ = $(FILES:=.o)

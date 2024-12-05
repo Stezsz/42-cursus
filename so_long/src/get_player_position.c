@@ -1,49 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_ecp.c                                        :+:      :+:    :+:   */
+/*   get_player_position.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 12:18:17 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/05 12:18:17 by strodrig         ###   ########.fr       */
+/*   Created: 2024/12/05 22:37:05 by strodrig          #+#    #+#             */
+/*   Updated: 2024/12/05 22:37:05 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	count_ecp(t_program game, int *e, int *c, int *p)
+void	get_collectibles(t_program *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (game.map.map[i])
+	while (game->map.map[i])
 	{
 		j = 0;
-		while (game.map.map[i][j])
+		while (game->map.map[i][j])
 		{
-			if (game.map.map[i][j] == 'E')
-				(*e)++;
-			else if (game.map.map[i][j] == 'C')
-				(*c)++;
-			else if (game.map.map[i][j] == 'P')
-				(*p)++;
+			if (game->map.map[i][j] == 'C')
+				game->map.collectibles++;
 			j++;
 		}
 		i++;
 	}
 }
 
-int	check_ecp(t_program game)
+void	get_player_position(t_program *game)
 {
-	int	e;
-	int	c;
-	int	p;
+	int	row;
+	int	col;
 
-	e = 0;
-	c = 0;
-	p = 0;
-	count_ecp(game, &e, &c, &p);
-	return (e == 1 && c > 0 && p == 1);
+	row = 0;
+	while (game->map.map[row])
+	{
+		col = 0;
+		while (game->map.map[row][col])
+		{
+			if (game->map.map[row][col] == PLAYER)
+			{
+				game->map.player.y = col;
+				game->map.player.x = row;
+				return ;
+			}
+			col++;
+		}
+		row++;
+	}
 }
