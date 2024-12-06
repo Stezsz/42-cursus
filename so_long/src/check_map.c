@@ -18,6 +18,12 @@ void	error_extension(char *file)
 	exit(1);
 }
 
+void	error_path(char *file)
+{
+	ft_printf("%sError: Invalid path. %s\n", RED, file);
+	exit(1);
+}
+
 static void	check_dir(char *file)
 {
 	int	fd;
@@ -47,6 +53,8 @@ void	check_map(char *file, t_program *game)
 		error_walls(file);
 	if (check_ecp(*game) == 0)
 		error_ecp(file);
-	get_player_position(game);
 	get_collectibles(game);
+	get_player_position(game);
+	if (validate_path(&game->map) != 0)
+		error_path(file);
 }

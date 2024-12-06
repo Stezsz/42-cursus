@@ -97,8 +97,11 @@ int		check_characters(t_program game);
 int		check_player(t_program game);
 int		check_walls(t_program *game);
 int		check_ecp(t_program game);
+int		validate_path(t_map *map);
 
 /* -------- UTILS -------- */
+void	copy_map(char **copy, t_map *map);
+void	ft_free_map(char **map, int rows);
 size_t	ft_strlen(const char *s);
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);
