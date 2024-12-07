@@ -80,7 +80,7 @@ void	push_elem_bottom(t_stack *stack, t_node *elem);
 void	push_elem(t_stack *stack, t_node *elem);
 
 /* ------- Utils Functions ------ */
-int		ft_atoi(const char *str);
+long	ft_atoi(const char *str);
 void	ft_putstr(char *str);
 char	**ft_split(const char *s, char c);
 void	free_split(char **split);

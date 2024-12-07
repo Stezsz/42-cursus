@@ -18,6 +18,7 @@ void	get_collectibles(t_program *game)
 	int	j;
 
 	i = 0;
+	game->map.collectibles = 0;
 	while (game->map.map[i])
 	{
 		j = 0;

@@ -6,7 +6,7 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 19:13:35 by strodrig          #+#    #+#             */
-/*   Updated: 2024/11/26 17:08:18 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:50:36 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static char	**parse_input(char **av, int *size)
 		split_args = ft_split(av[0], ' ');
 		while (split_args[i])
 			i++;
-		av = split_args;
 		*size = i;
 	}
 	return (split_args);
@@ -35,6 +34,8 @@ void	get_input(t_stack *a, t_stack *b, char **av, int size)
 	char	**split_args;
 
 	split_args = parse_input(av, &size);
+	if (split_args)
+		av = split_args;
 	if (!is_integer(av, size) || is_greater_than_int(av, size)
 		|| is_duplicates(av, size))
 		put_error("Error\n");

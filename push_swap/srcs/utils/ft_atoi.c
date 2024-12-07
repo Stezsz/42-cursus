@@ -6,17 +6,17 @@
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 14:39:24 by strodrig          #+#    #+#             */
-/*   Updated: 2024/11/12 14:51:25 by strodrig         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:44:25 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
+	long	i;
+	long	sign;
+	long	result;
 
 	i = 0;
 	sign = 1;
