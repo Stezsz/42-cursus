@@ -90,6 +90,7 @@ void	move_left(t_program *game);
 void	move_right(t_program *game);
 void	get_player_position(t_program *game);
 void	get_collectibles(t_program *game);
+void	free_resources(t_program *game);
 
 /* -------- CHECKER -------- */
 int		check_extension(const char *file, const char *ext);
@@ -112,11 +113,11 @@ int		ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 
 /* -------- ERROR -------- */
-void	error_extension(char *file);
-void	error_rectangular(char *file);
-void	error_characters(char *file);
-void	error_player(char *file);
-void	error_walls(char *file);
-void	error_ecp(char *file);
+void    error_extension(t_program *game, char *file);
+void    error_rectangular(t_program *game, char *file);
+void    error_characters(t_program *game, char *file);
+void    error_player(t_program *game, char *file);
+void    error_walls(t_program *game, char *file);
+void    error_ecp(t_program *game, char *file);
 
 #endif

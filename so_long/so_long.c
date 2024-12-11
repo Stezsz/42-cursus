@@ -12,6 +12,31 @@
 
 #include "so_long.h"
 
+void	free_resources(t_program *game)
+{
+	int	i;
+
+	i = 0;
+
+	if (game->map.map)
+	{
+		while (i < game->map.rows)
+		{
+			if (game->map.map[i])
+				free(game->map.map[i]);
+			i++;
+		}
+		free(game->map.map);
+	}
+	if (game->mlx)
+	{
+		if (game->win)
+			mlx_destroy_window(game->mlx, game->win);
+		mlx_destroy_display(game->mlx);
+	}
+	free(game->mlx);
+}
+
 int	main(int ac, char **av)
 {
 	t_program	game;
@@ -41,6 +66,6 @@ int	main(int ac, char **av)
 ////////////////////////// 1.0 ///////////////////////////
 //Valgrind ./so_long sem mapa - 0 leaks					//
 //Valgrind ./so_long mapa vazio - 0 leaks				//
-//Valgrind ./so_long mapa valido - 55 leaks				//
-//Valgrind ./so_long mapa invalido - ind leaks			//
+//Valgrind ./so_long mapa valido - 0 leaks				//
+//Valgrind ./so_long mapa invalido - 0 leaks			//
 //////////////////////////////////////////////////////////

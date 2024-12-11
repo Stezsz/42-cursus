@@ -14,20 +14,7 @@
 
 void	ft_free(t_program *game, char *msg)
 {
-	int	i;
-
-	if (game->map.map)
-	{
-		i = 0;
-		while (game->map.map[i])
-		{
-			free(game->map.map[i]);
-			i++;
-		}
-		free(game->map.map);
-	}
-	if (game->mlx && game->win)
-		mlx_destroy_window(game->mlx, game->win);
+	free_resources(game);
 	if (ft_strcmp(msg, "Player Win!") == 0)
 		ft_printf("%s──────────────── Player Win! ────────────────\n", GREEN);
 	else

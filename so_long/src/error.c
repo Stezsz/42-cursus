@@ -12,33 +12,27 @@
 
 #include "so_long.h"
 
-void	error_rectangular(char *file)
+void	error_rectangular(t_program *game, char *file)
 {
-	ft_printf("%sError: Map is not rectangular. %s\n", RED, file);
-	exit(1);
+	ft_free(game, "Error: Map is not rectangular.");
 }
 
-void	error_characters(char *file)
+void	error_characters(t_program *game, char *file)
 {
-	ft_printf("%sError: Invalid characters in map. %s\n", RED, file);
-	exit(1);
+	ft_free(game, "Error: Invalid characters in map.");
 }
 
-void	error_player(char *file)
+void	error_player(t_program *game, char *file)
 {
-	ft_printf("%sError: Map need one player. %s\n", RED, file);
-	exit(1);
+	ft_free(game, "Error: Map needs one player.");
 }
 
-void	error_walls(char *file)
+void	error_walls(t_program *game ,char *file)
 {
-	ft_printf("%sError: Map is not surrounded by walls. %s\n", RED, file);
-	exit(1);
+	ft_free(game, "Error: Map is not surrounded by walls.");
 }
 
-void	error_ecp(char *file)
+void	error_ecp(t_program *game, char *file)
 {
-	ft_printf("%sError: Player or Exit or Collectible not found!. %s\n",
-		RED, file);
-	exit(1);
+	ft_free(game, "Error: Player or Exit or Collectible not found!");
 }
