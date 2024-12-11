@@ -113,11 +113,11 @@ int		ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 
 /* -------- ERROR -------- */
-void    error_extension(t_program *game, char *file);
-void    error_rectangular(t_program *game, char *file);
-void    error_characters(t_program *game, char *file);
-void    error_player(t_program *game, char *file);
-void    error_walls(t_program *game, char *file);
-void    error_ecp(t_program *game, char *file);
+void	error_extension(t_program *game, char *file);
+void	error_rectangular(t_program *game, char *file);
+void	error_characters(t_program *game, char *file);
+void	error_player(t_program *game, char *file);
+void	error_walls(t_program *game, char *file);
+void	error_ecp(t_program *game, char *file);
 
 #endif

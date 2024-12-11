@@ -12,7 +12,7 @@
 
 NAME = so_long
 
-CC = cc -g
+CC = cc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 

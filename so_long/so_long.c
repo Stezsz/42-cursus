@@ -17,7 +17,6 @@ void	free_resources(t_program *game)
 	int	i;
 
 	i = 0;
-
 	if (game->map.map)
 	{
 		while (i < game->map.rows)
@@ -62,10 +61,3 @@ int	main(int ac, char **av)
 	mlx_loop(game.mlx);
 	return (0);
 }
-
-////////////////////////// 1.0 ///////////////////////////
-//Valgrind ./so_long sem mapa - 0 leaks					//
-//Valgrind ./so_long mapa vazio - 0 leaks				//
-//Valgrind ./so_long mapa valido - 0 leaks				//
-//Valgrind ./so_long mapa invalido - 0 leaks			//
-//////////////////////////////////////////////////////////

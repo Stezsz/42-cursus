@@ -27,7 +27,7 @@ void	error_player(t_program *game, char *file)
 	ft_free(game, "Error: Map needs one player.");
 }
 
-void	error_walls(t_program *game ,char *file)
+void	error_walls(t_program *game, char *file)
 {
 	ft_free(game, "Error: Map is not surrounded by walls.");
 }

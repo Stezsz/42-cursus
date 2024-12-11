@@ -22,8 +22,7 @@ static void	flood_fill(char **map, int x, int y, t_program *game)
 		game->map.collectibles--;
 	if (map[y][x] == EXIT)
 	{
-		if (game->map.collectibles == 0)
-			game->can_exit = 1;
+		game->can_exit = 1;
 		return ;
 	}
 	map[y][x] = 'X';

@@ -48,7 +48,7 @@ void	check_map(char *file, t_program *game)
 	if (check_player(*game) == 0)
 		error_player(game, file);
 	if (check_walls(game) != 0)
-		error_walls(game ,file);
+		error_walls(game, file);
 	if (check_ecp(*game) == 0)
 		error_ecp(game, file);
 	get_collectibles(game);
