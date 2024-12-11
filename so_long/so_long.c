@@ -21,8 +21,14 @@ int	main(int ac, char **av)
 		write(1, "Usage: ./so_long [file.ber]\n", 28);
 		exit(1);
 	}
+	ft_bzero(&game, sizeof(t_program));
 	check_map(av[1], &game);
 	game.mlx = mlx_init();
+	if (!game.mlx)
+	{
+		ft_free(&game, "Error: mlx_init failed.");
+		exit(1);
+	}
 	new_window(&game);
 	render_map(game);
 	ft_printf("%s─────────────────── So Long! ───────────────────\n", YELLOW);
@@ -31,3 +37,10 @@ int	main(int ac, char **av)
 	mlx_loop(game.mlx);
 	return (0);
 }
+
+////////////////////////// 1.0 ///////////////////////////
+//Valgrind ./so_long sem mapa - 0 leaks					//
+//Valgrind ./so_long mapa vazio - 0 leaks				//
+//Valgrind ./so_long mapa valido - 55 leaks				//
+//Valgrind ./so_long mapa invalido - ind leaks			//
+//////////////////////////////////////////////////////////

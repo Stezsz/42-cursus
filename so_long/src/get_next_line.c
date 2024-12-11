@@ -5,48 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 22:51:15 by strodrig          #+#    #+#             */
-/*   Updated: 2024/12/04 22:51:15 by strodrig         ###   ########.fr       */
+/*   Created: 2024/05/31 13:35:48 by strodrig          #+#    #+#             */
+/*   Updated: 2024/08/31 12:59:01 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-char	*ft_strdup(const char *s1)
-{
-	char	*copy;
-	size_t	s1_len;
-	int		i;
-
-	i = 0;
-	s1_len = ft_strlen(s1);
-	copy = malloc(sizeof(char) * (s1_len + 1));
-	if (!copy)
-		return (NULL);
-	while (s1[i])
-	{
-		copy[i] = s1[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
-}
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	char	line[8000000];
-	char	buf;
-	int		i;
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+	size_t		i;
+	int			bytesread;
 
-	i = 0;
-	while (read(fd, &buf, 1) == 1)
+	if (fd < 0 || fd > FOPEN_MAX)
 	{
-		line[i++] = buf;
-		if (buf == '\n')
-			break ;
-	}
-	line[i] = '\0';
-	if (!line[0])
+		i = 0;
+		while (buffer[i])
+			buffer[i++] = 0;
 		return (NULL);
-	return (ft_strdup(line));
+	}
+	line = NULL;
+	if (!buffer[0])
+	{
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		if (bytesread < 0)
+			return (NULL);
+		buffer[bytesread] = 0;
+	}
+	line = reader(fd, buffer);
+	return (line);
 }
+
+/*int	main(void)
+{
+	int		fd = open("tester.txt", O_RDONLY);
+	char	*line;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
+}*/

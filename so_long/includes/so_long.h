@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "ft_printf.h"
+# include "get_next_line.h"
 # include "mlx.h"
 
 /* -------- KEY VALUES -------- */
@@ -98,15 +99,17 @@ int		check_player(t_program game);
 int		check_walls(t_program *game);
 int		check_ecp(t_program game);
 int		validate_path(t_map *map);
+int		map_len(int fd);
+char	*remove_newline(char *line);
 
 /* -------- UTILS -------- */
 void	copy_map(char **copy, t_map *map);
 void	ft_free_map(char **map, int rows);
+void	ft_bzero(void *s, size_t n);
 size_t	ft_strlen(const char *s);
-char	*get_next_line(int fd);
-char	*ft_strdup(const char *s1);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
 
 /* -------- ERROR -------- */
 void	error_extension(char *file);

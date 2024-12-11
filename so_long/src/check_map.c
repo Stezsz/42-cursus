@@ -20,7 +20,7 @@ void	error_extension(char *file)
 
 void	error_path(char *file)
 {
-	ft_printf("%sError: Invalid path. %s\n", RED, file);
+	ft_printf("%sError: Invalid map. %s\n", RED, file);
 	exit(1);
 }
 
@@ -32,9 +32,9 @@ static void	check_dir(char *file)
 	if (fd != -1)
 	{
 		write(1, "Error: Invalid file\n", 20);
+		close(fd);
 		exit(1);
 	}
-	close(fd);
 }
 
 void	check_map(char *file, t_program *game)

@@ -12,7 +12,7 @@
 
 NAME = so_long
 
-CC = gcc
+CC = cc -g
 FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
@@ -25,11 +25,11 @@ LIBMLX = -L$(MLX_PATH) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 LIBPRINTF = $(PRINTF_PATH)/libftprintf.a
 
 FILES = so_long src/check_map src/error src/utils src/check_extension \
-				src/read_map src/get_next_line src/check_rectangular \
-				src/check_characters src/check_player src/check_walls \
-				src/check_ecp src/window src/ft_free src/render src/moves \
-				src/player_moves src/get_player_position src/validate_path \
-				src/validate_path_utils
+				src/read_map src/get_next_line src/get_next_line_utils \
+				src/check_rectangular src/check_characters src/check_player \
+				src/check_walls src/check_ecp src/window src/ft_free src/render \
+				src/moves src/player_moves src/get_player_position src/validate_path \
+				src/validate_path_utils src/map_utils
 
 SRC = $(FILES:=.c)
 OBJ = $(FILES:=.o)
