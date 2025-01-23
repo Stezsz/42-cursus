@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Iincludes #-Wall -Wextra -Werror#
+CFLAGS = -Iincludes -Wall -Wextra -Werror
 RM = rm -f
 
 FILES = philo utils/ft_puterror utils/ft_calloc utils/ft_atoi \

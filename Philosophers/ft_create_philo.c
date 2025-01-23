@@ -74,15 +74,23 @@ void	ft_create_philo(t_info *info)
 	}
 }
 
-void	ft_init_mutex(t_info *info)
+void ft_init_mutex(t_info *info)
 {
 	int i;
 
 	i = 0;
-	pthread_mutex_init(&info->finish_lock, NULL);
+	if (pthread_mutex_init(&info->finish_lock, NULL) != 0)
+	{
+		ft_puterror("Error: failed to initialize finish_lock mutex");
+		exit(1);
+	}
 	while (i < info->num_of_philo)
 	{
-		pthread_mutex_init(&info->forks[i], NULL);
+		if (pthread_mutex_init(&info->forks[i], NULL) != 0)
+		{
+			ft_puterror("Error: failed to initialize fork mutex");
+			exit(1);
+		}
 		i++;
 	}
 }

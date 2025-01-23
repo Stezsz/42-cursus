@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	ft_print_msg(t_philo *philo, char *msg)
+void ft_print_msg(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(&philo->info->finish_lock);
 	if (!philo->info->finish)
