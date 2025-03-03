@@ -12,11 +12,11 @@
 
 #include "philo.h"
 
-void *philosophers(void *arg)
+void	*philosophers(void *arg)
 {
-	t_philo *philo;
-	int left_fork;
-	int right_fork;
+	t_philo	*philo;
+	int		left_fork;
+	int		right_fork;
 
 	philo = (t_philo *)arg;
 	while (!philo->should_die && !philo->info->finish)

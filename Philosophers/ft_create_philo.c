@@ -30,7 +30,6 @@ void	*ft_check_death(void *arg)
 	return (NULL);
 }
 
-
 void	*ft_check_ate(void *arg)
 {
 	t_info	*info;
@@ -40,7 +39,7 @@ void	*ft_check_ate(void *arg)
 	{
 		if (info->all_ate == info->num_of_philo)
 		{
-				info->finish = true;
+			info->finish = true;
 		}
 	}
 	return (NULL);
@@ -61,7 +60,7 @@ void	ft_create_philo(t_info *info)
 		info->philo[i].last_meal = info->creation_time;
 		info->philo[i].info = info;
 		pthread_create(&info->philo[i].thread, NULL, philosophers,
-				&info->philo[i]);
+			&info->philo[i]);
 		pthread_create(&monitor, NULL, ft_check_death, &info->philo[i]);
 		pthread_detach(monitor);
 		i++;
@@ -74,9 +73,9 @@ void	ft_create_philo(t_info *info)
 	}
 }
 
-void ft_init_mutex(t_info *info)
+void	ft_init_mutex(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (pthread_mutex_init(&info->finish_lock, NULL) != 0)

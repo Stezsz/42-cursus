@@ -48,7 +48,7 @@ int	ft_init_info(t_info *info, int ac, char **av)
 		return (1);
 	info->philo = ft_calloc(info->num_of_philo, sizeof(t_philo));
 	info->forks = ft_calloc(info->num_of_philo,
-				sizeof(pthread_mutex_t));
+			sizeof(pthread_mutex_t));
 	if (!info->philo || !info->forks)
 		return (1);
 	info->finish = false;
@@ -57,4 +57,3 @@ int	ft_init_info(t_info *info, int ac, char **av)
 	ft_create_philo(info);
 	return (0);
 }
-

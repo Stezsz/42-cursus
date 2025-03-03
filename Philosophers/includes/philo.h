@@ -72,10 +72,10 @@ void	*ft_check_ate(void *arg);
 void	*ft_check_death(void *arg);
 
 /*----- UTILS -----*/
-int			ft_puterror(char *str);
-int			ft_atoi(const char *str);
-void		*ft_calloc(size_t count, size_t size);
-long long	ft_get_time(void);
-long long	ft_current_time(t_info *info);
+int		ft_puterror(char *str);
+int		ft_atoi(const char *str);
+void	*ft_calloc(size_t count, size_t size);
+long	ft_get_time(void);
+long	ft_current_time(t_info *info);
 
 #endif

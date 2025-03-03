@@ -12,15 +12,15 @@
 
 #include "philo.h"
 
-long long	ft_get_time(void)
+long	ft_get_time(void)
 {
-	struct timeval current_time;
+	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-long long	ft_current_time(t_info *info)
+long	ft_current_time(t_info *info)
 {
 	return (ft_get_time() - info->creation_time);
 }
