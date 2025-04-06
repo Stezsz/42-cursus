@@ -21,7 +21,7 @@ char *get_next_line(int fd)
 		if (c == '\n')
 			break;
 	}
-	if (i == 0 || bytes == 0)
+	if (i == 0 || bytes < 0)
 	{
 		free(ret);
 		return (NULL);
