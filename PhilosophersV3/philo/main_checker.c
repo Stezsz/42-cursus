@@ -19,7 +19,6 @@ int	check_eats(t_list *d)
 
 	if (!d || !d->philo)
 		return (1);
-
 	i = 0;
 	j = 0;
 	if (!d->philo_eats)
@@ -29,7 +28,7 @@ int	check_eats(t_list *d)
 		if (d->philo[i].num_eats >= d->philo_eats)
 			j++;
 		else
-			break;
+			break ;
 		i++;
 	}
 	if (j == d->num_philos)
@@ -46,8 +45,7 @@ void	main_checker(t_list *d)
 	long	t;
 
 	if (!d || !d->philo)
-		return;
-
+		return ;
 	c = -1;
 	while (d->stat == 0)
 	{
@@ -57,14 +55,14 @@ void	main_checker(t_list *d)
 			if (t - d->philo[c].last_eat > d->time_die || check_eats(d) == 1)
 			{
 				if (d->stat == 2)
-					break;
+					break ;
 				d->stat = 1;
 				printer(t, c + 1, "died");
-				break;
+				break ;
 			}
 		}
 		if (d->stat != 0)
-			break;
+			break ;
 		c = -1;
 	}
 }

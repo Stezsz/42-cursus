@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: strodrig <strodrig@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 18:54:36 by strodrig          #+#    #+#             */
-/*   Updated: 2025/03/24 18:54:36 by strodrig         ###   ########.fr       */
+/*   Created: 2025/04/07 12:13:49 by strodrig          #+#    #+#             */
+/*   Updated: 2025/04/07 12:13:49 by strodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	check_num_arg(char *num_arg, int pos, t_list *d)
 {
-	int n;
+	int	n;
 
 	n = ft_atoi(num_arg);
 	if (!n || n < 0 || (pos == 1 && n > 200) || (pos == 2 && n < 60)
-	|| (pos == 3 && n < 60) || (pos == 4 && n < 60))
+		|| (pos == 3 && n < 60) || (pos == 4 && n < 60))
 	{
 		ft_free(d);
 		printf("Error: Invalid argument\n");
@@ -60,12 +60,15 @@ static int	start_philo(t_list *d)
 
 int	main(int argc, char **argv)
 {
-	int	i;
+	int		i;
 	t_list	*d;
 
 	if (argc != 5 && argc != 6)
 	{
-		return (printf("Usage: ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]\n"));
+		return (printf(
+				"Usage: ./philo <num_of_philos> <time_to_die> <time_to_eat>"
+				"<time_to_sleep> [num_of_times_each_philo_must_eat]\n"
+			));
 	}
 	i = 1;
 	d = (t_list *)malloc(sizeof(t_list));
@@ -74,7 +77,7 @@ int	main(int argc, char **argv)
 	d->philo_eats = 0;
 	while (i != argc)
 	{
-		if (check_num_arg(argv[i], i , d) < 0)
+		if (check_num_arg(argv[i], i, d) < 0)
 			return (0);
 		i++;
 	}
@@ -83,4 +86,3 @@ int	main(int argc, char **argv)
 	ft_free(d);
 	return (0);
 }
-

@@ -22,13 +22,11 @@ long	calc_time(void)
 	return (actual_time);
 }
 
-void	ft_usleep(long time)
+void	ft_usleep(long milliseconds)
 {
-	long	start;
+	long	start_time;
 
-	start = calc_time();
-	while (calc_time() - start < time)
-	{
-		usleep(time / 2);
-	}
+	start_time = calc_time();
+	while ((calc_time() - start_time) < milliseconds)
+		usleep(10);
 }

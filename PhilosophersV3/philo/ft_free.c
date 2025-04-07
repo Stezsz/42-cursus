@@ -17,47 +17,26 @@ void	ft_free(t_list *d)
 	int	i;
 
 	if (!d)
-		return;
-
-	// Primeiro destruímos todos os mutexes
+		return ;
 	if (d->mutex)
 	{
 		i = 0;
 		while (i < d->num_philos)
-		{
-			pthread_mutex_destroy(&d->mutex[i]);
-			i++;
-		}
+			pthread_mutex_destroy(&d->mutex[i++]);
 	}
-
-	// Destruímos os mutexes individuais
 	pthread_mutex_destroy(&d->mutex_i);
 	pthread_mutex_destroy(&d->mutex_msg);
 	pthread_mutex_destroy(&d->mutex_fork);
 	pthread_mutex_destroy(&d->mutex_last_eat);
 	pthread_mutex_destroy(&d->mutex_stat);
-
-	// Depois liberamos a memória
 	if (d->thread)
 	{
 		i = 0;
 		while (i < d->num_philos)
-		{
-			pthread_join(d->thread[i], NULL);
-			i++;
-		}
+			pthread_join(d->thread[i++], NULL);
 		free(d->thread);
-		d->thread = NULL;
 	}
-	if (d->philo)
-	{
-		free(d->philo);
-		d->philo = NULL;
-	}
-	if (d->mutex)
-	{
-		free(d->mutex);
-		d->mutex = NULL;
-	}
+	free(d->philo);
+	free(d->mutex);
 	free(d);
 }

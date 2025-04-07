@@ -42,7 +42,6 @@ int	create_threads(t_list *d)
 		d->philo[i].last_eat = 0;
 		if (pthread_mutex_unlock(&d->mutex_last_eat) != 0)
 			return (-1);
-
 		if (pthread_create(&d->thread[i], NULL, &philo_routine, (void *)d) != 0)
 		{
 			while (--i >= 0)
@@ -53,5 +52,3 @@ int	create_threads(t_list *d)
 	}
 	return (0);
 }
-
-

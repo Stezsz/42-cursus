@@ -53,11 +53,11 @@ typedef struct s_list
 }	t_list;
 
 /* ---- init_values.c ---- */
-int	init_values(t_list *d);
+int		init_values(t_list *d);
 
 /* ---- mtx_and_pth.c ---- */
-int	create_mutex(t_list *d);
-int	create_threads(t_list *d);
+int		create_mutex(t_list *d);
+int		create_threads(t_list *d);
 
 /* ---- main_checker.c ---- */
 void	main_checker(t_list *d);
@@ -86,6 +86,5 @@ int		death_philo(t_list *d);
 void	ft_take_fork(t_list *d, int i);
 void	ft_eat(t_list *d, int i);
 void	ft_sleep(t_list *d, int i);
-
+void	handle_one_philo(t_list *d, int i);
 #endif
-
