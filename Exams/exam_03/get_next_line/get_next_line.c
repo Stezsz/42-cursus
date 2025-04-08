@@ -1,50 +1,86 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
+#include "get_next_line.h"
 
-char *get_next_line(int fd)
+size_t	ft_strlen(const char *str)
 {
-	char	*ret;
-	char	c;
-	int		i = 0;
-	int		bytes = 0;
-
-	if (fd < 0)
-		return (NULL);
-	ret = malloc(BUFFER_SIZE + 1);
-	if (!ret)
-		return (NULL);
-	while ((bytes = read(fd, &c, 1)) > 0)
-	{
-		ret[i++] = c;
-		if (c == '\n')
-			break;
-	}
-	if (i == 0 || bytes < 0)
-	{
-		free(ret);
-		return (NULL);
-	}
-	ret[i] = '\0';
-	return (ret);
+	size_t	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i + (str[i] == '\n'));
 }
 
-int main(int argc, char **argv)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int		fd = 0;
-	char	*line;
+	char	*res;
+	size_t	i = 0, j = 0;
 
-	if (argc > 1)
-		fd = open(argv[1], O_RDONLY);
-	line = get_next_line(fd);
-	while (line != NULL)
+	res = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!res)
+		return (NULL);
+	while (s1 && s1[i])
+		res[j++] = s1[i++];
+	i = 0;
+	while (s2[i] && s2[i] != '\n')
+		res[j++] = s2[i++];
+	if (s2[i] == '\n')
+		res[j++] = '\n';
+	res[j] = 0;
+	free(s1);
+	return (res);
+}
+
+void	bufflord(char *str)
+{
+	size_t	i = 0, j = 0;
+
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i] == '\n')
+		i++;
+	while (str[i])
+		str[j++] = str[i++];
+	str[j] = 0;
+}
+
+char	*reader(int fd, char *buffer)
+{
+	char	*line = NULL;
+
+	while (buffer[0] || read(fd, buffer, BUFFER_SIZE) > 0)
+	{
+		line = ft_strjoin(line, buffer);
+		if (!line)
+			return (NULL);
+		if (buffer[ft_strlen(buffer) - 1] == '\n')
+		{
+			bufflord(buffer);
+			break;
+		}
+		buffer[read(fd, buffer, BUFFER_SIZE)] = 0;
+	}
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1] = {0};
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	return (reader(fd, buffer));
+}
+
+int main(void)
+{
+	int fd = open("test.txt", O_RDONLY);
+	char *line;
+
+	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
-		line = get_next_line(fd);
 	}
-	if (fd > 0)
-		close(fd);
+	close(fd);
 	return (0);
 }

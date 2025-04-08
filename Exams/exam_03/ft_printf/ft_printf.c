@@ -1,5 +1,17 @@
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   short_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gcomlan <gcomlan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/19 22:09:51 by gcomlan           #+#    #+#             */
+/*   Updated: 2022/08/23 11:08:59 by gcomlan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdarg.h>
+#include <unistd.h>
 
 int	ft_putchar(char c)
 {
@@ -8,58 +20,57 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char *str)
 {
-	int	i = -1;
+	int	len;
 
+	len = 0;
 	if (!str)
 		str = "(null)";
-	while (str[++i])
-		ft_putchar(str[i]);
-	return (i);
+	while (*str)
+		len += write(1, str++, 1);
+	return (len);
 }
 
-int	ft_putnbr(unsigned int nb, int base)
+int	ft_putdigits(long long nbr, int base)
 {
-	return (nb / base ? ft_putnbr(nb / base, base) : 0) +
-		ft_putchar("0123456789abcdef"[nb % base]);
-}
+	int	len;
 
-int	print_d(int nb)
-{
-	int	count = 0;
-
-	if (nb < 0)
+	len = 0;
+	if (nbr < 0)
 	{
-		count += ft_putchar('-');
-		if (nb == -2147483648)
-			return (count + ft_putstr("2147483648"));
-		nb = -nb;
+		nbr *= -1;
+		len += write(1, "-", 1);
 	}
-	return (count + ft_putnbr((unsigned int)nb, 10));
+	if (nbr >= base)
+		len += ft_putdigits((nbr / base), base);
+	len += ft_putchar("0123456789abcdef"[nbr % base]);
+	return (len);
 }
 
-int	ft_printf(char *str, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list	ap;
-	int		count = 0;
-	int		i = -1;
+	int		idx;
+	int		len;
+	va_list	arg;
 
-	if (!str)
-		return (0);
-	va_start(ap, str);
-	while (str[++i])
+	idx = 0;
+	len = 0;
+	va_start(arg, format);
+	while (format[idx])
 	{
-		if (str[i] == '%')
+		if (format[idx] != '%')
+			len += write(1, &format[idx], 1);
+		else if (format[idx] == '%' && format[idx + 1])
 		{
-			if (str[++i] == 'd')
-				count += print_d(va_arg(ap, int));
-			else if (str[i] == 'x')
-				count += ft_putnbr(va_arg(ap, unsigned int), 16);
-			else if (str[i] == 's')
-				count += ft_putstr(va_arg(ap, char *));
+			idx++;
+			if (format[idx] == 's')
+				len += ft_putstr(va_arg(arg, char *));
+			else if (format[idx] == 'x')
+				len += ft_putdigits((long long)va_arg(arg, unsigned int), 16);
+			else if (format[idx] == 'd')
+				len += ft_putdigits((long long)va_arg(arg, int), 10);
 		}
-		else
-			count += ft_putchar(str[i]);
+		idx++;
 	}
-	va_end(ap);
-	return (count);
+	va_end(arg);
+	return (len);
 }
