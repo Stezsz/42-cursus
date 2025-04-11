@@ -1,40 +1,31 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   short_1.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gcomlan <gcomlan@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 22:09:51 by gcomlan           #+#    #+#             */
-/*   Updated: 2022/08/23 11:08:59 by gcomlan          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <stdarg.h>
 #include <unistd.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 int	ft_putchar(char c)
 {
-	return (write(1, &c, 1));
+	return(write(1, &c, 1));
 }
 
 int	ft_putstr(char *str)
 {
-	int	len;
+	int i = 0;
+	int len = 0;
 
-	len = 0;
 	if (!str)
 		str = "(null)";
-	while (*str)
-		len += write(1, str++, 1);
+	while (str[i])
+	{
+		len += ft_putchar(str[i]);
+		i++;
+	}
 	return (len);
 }
 
 int	ft_putdigits(long long nbr, int base)
 {
-	int	len;
+	int len = 0;
 
-	len = 0;
 	if (nbr < 0)
 	{
 		nbr *= -1;
@@ -42,35 +33,50 @@ int	ft_putdigits(long long nbr, int base)
 	}
 	if (nbr >= base)
 		len += ft_putdigits((nbr / base), base);
-	len += ft_putchar("0123456789abcdef"[nbr % base]);
-	return (len);
+	len += ft_putchar("0123456789abcedf"[nbr % base] );
+	return len;
+
 }
 
-int	ft_printf(const char *format, ...)
+int ft_printf(const char *format, ... )
 {
-	int		idx;
-	int		len;
-	va_list	arg;
+	int i = 0;
+	int len = 0;
+	va_list args;
 
-	idx = 0;
-	len = 0;
-	va_start(arg, format);
-	while (format[idx])
+	va_start(args, format);
+	while (format[i])
 	{
-		if (format[idx] != '%')
-			len += write(1, &format[idx], 1);
-		else if (format[idx] == '%' && format[idx + 1])
+		if (format[i] != '%')
+			len += write(1, &format[i], 1);
+		else if (format[i] == '%' && format[i + 1])
 		{
-			idx++;
-			if (format[idx] == 's')
-				len += ft_putstr(va_arg(arg, char *));
-			else if (format[idx] == 'x')
-				len += ft_putdigits((long long)va_arg(arg, unsigned int), 16);
-			else if (format[idx] == 'd')
-				len += ft_putdigits((long long)va_arg(arg, int), 10);
+			i++;
+			if (format[i] == 's')
+				len += ft_putstr(va_arg(args, char *));
+			else if (format[i] == 'd')
+				len += ft_putdigits(va_arg(args, int), 10);
+			else if (format[i] == 'x')
+				len += ft_putdigits(va_arg(args, unsigned int), 16);
 		}
-		idx++;
+		i++;
 	}
-	va_end(arg);
-	return (len);
+	va_end(args);
+	return len;
 }
+
+int main()
+{
+	ft_printf("%s ", "test1");
+	printf("%s \n", "test1");
+	ft_printf("test2 ");
+	printf("test2\n");
+	ft_printf("%d ", 42);
+	printf("%d\n", 42);
+	ft_printf("%x ", 10);
+	printf("%x\n", 10);
+}
+
+
+
+
