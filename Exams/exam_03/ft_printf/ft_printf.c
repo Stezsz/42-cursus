@@ -33,9 +33,8 @@ int	ft_putdigits(long long nbr, int base)
 	}
 	if (nbr >= base)
 		len += ft_putdigits((nbr / base), base);
-	len += ft_putchar("0123456789abcedf"[nbr % base] );
+	len += ft_putchar("0123456789abcdef"[nbr % base]);
 	return len;
-
 }
 
 int ft_printf(const char *format, ... )
@@ -51,7 +50,6 @@ int ft_printf(const char *format, ... )
 			len += write(1, &format[i], 1);
 		else if (format[i] == '%' && format[i + 1])
 		{
-			i++;
 			if (format[i] == 's')
 				len += ft_putstr(va_arg(args, char *));
 			else if (format[i] == 'd')
