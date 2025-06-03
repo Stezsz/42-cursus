@@ -20,8 +20,14 @@ Most of them are private but I'll be slowly making them public as time goes..
 - [x] [so_long](https://github.com/Stezsz/so_long) (100%)
 
 ### Rank 3
-- [x] [philosophers](https://github.com/Stezsz/Philosophers) (100%)
+- [x] [Philosophers](https://github.com/Stezsz/Philosophers) (100%)
 - [x] [minishell](https://github.com/Stezsz/minishell) (100%)
+
+### Rank 4
+
+- [x] [NetPractice]() (pending)
+- [x] [CPP]() (pending)
+- [x] [cub3d]() (pending)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
