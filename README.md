@@ -25,8 +25,8 @@ Most of them are private but I'll be slowly making them public as time goes..
 
 ### Rank 4
 
-- [x] [NetPractice]() (pending)
-- [x] [CPP]() (pending)
+- [x] [NetPractice](https://github.com/Stezsz/NetPractice) (pending)
+- [x] [CPP00-04](https://github.com/Stezsz/CPP00-04) (pending)
 - [x] [cub3d]() (pending)
 
 https://github.com/leite-tiago/42_school/
