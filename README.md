@@ -27,7 +27,7 @@ Most of them are private but I'll be slowly making them public as time goes..
 
 - [x] [NetPractice](https://github.com/Stezsz/NetPractice) (pending)
 - [x] [CPP00-04](https://github.com/Stezsz/CPP00-04) (pending)
-- [x] [cub3d]() (pending)
+- [x] [cub3d](https://github.com/leite-tiago/cub3d) (pending)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
