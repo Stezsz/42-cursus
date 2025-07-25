@@ -26,8 +26,13 @@ Most of them are private but I'll be slowly making them public as time goes..
 ### Rank 4
 
 - [x] [NetPractice](https://github.com/Stezsz/NetPractice) (pending)
-- [x] [CPP00-04](https://github.com/Stezsz/CPP00-04) (pending)
-- [x] [cub3d](https://github.com/leite-tiago/cub3d) (pending)
+- [x] [CPP00-04](https://github.com/Stezsz/CPP00-04)
+  - [CPP00](https://github.com/Stezsz/CPP00-04/tree/main/cpp00) (100%)
+  - [CPP01](https://github.com/Stezsz/CPP00-04/tree/main/cpp01) (100%)
+  - [CPP02](https://github.com/Stezsz/CPP00-04/tree/main/cpp02) (90%)
+  - [CPP03](https://github.com/Stezsz/CPP00-04/tree/main/cpp03) (pending)
+  - [CPP04](https://github.com/Stezsz/CPP00-04/tree/main/cpp04) (pending)
+- [x] [cub3d](https://github.com/Stezsz/cub3d) (pending)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
