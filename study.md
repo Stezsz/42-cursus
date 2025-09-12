@@ -1,4 +1,5 @@
 Mapa Mental Rank 04
+
 1️⃣ N-Queens
 
 Tipo: Backtracking
@@ -342,3 +343,160 @@ Eval_tree → recursivamente
 
 
 💡 Dica: Precedência: * > +
+
+Rank 04 – Cheatsheet Mental
+1. N-Queens
+
+Representação: tab[col] = row → posição da rainha em cada coluna.
+
+is_safe: checa se nenhuma rainha está na mesma linha ou diagonal.
+
+Mesma linha: tab[i] == row
+
+Diagonal: abs(i - col) == abs(tab[i] - row)
+
+Backtracking:
+
+Coloca rainha na coluna col.
+
+Se safe, vai para col+1.
+
+Se col == n → imprime solução.
+
+Dica: visualize a árvore de recursão e como o array cresce.
+
+2. Permutations
+
+Sorted primeiro (para saída lexicográfica).
+
+Recursão com used[i] → marca se caractere já está na permutação.
+
+Fluxo:
+
+Para cada índice i não usado:
+
+Coloca str[i] em result[dep]
+
+Marca usado[i] = 1
+
+Recurse dep+1
+
+Desmarca usado[i]
+
+Dica: trace permutações pequenas manualmente.
+
+3. Subset Sum (powerset)
+
+Array res guarda subset atual.
+
+Backtracking: incluir ou não cada elemento.
+
+Checa soma → se soma == target → imprime.
+
+Fluxo:
+
+Escolhe elemento i: incluir → recurse
+
+Não incluir → recurse
+
+Terminar quando i == size.
+
+4. Parentheses Balance
+
+Contar parênteses: unclosed e unopened.
+
+Remover parênteses inválidos recursivamente:
+
+Para cada parêntese, tenta remover
+
+Chama recursão com changes+1
+
+Quando ft_balance == 0 → imprime
+
+Dica: visualize árvore de decisões (remover ou não cada parêntese).
+
+5. TSP (Traveling Salesman)
+
+Array de pontos (x, y)
+
+Visited[] marca cidades já visitadas
+
+Fluxo:
+
+Marca cidade atual como visitada
+
+Recurse para todas cidades não visitadas
+
+Quando todas visitadas → soma distância de volta à cidade inicial
+
+Guarda mínimo (best_route)
+
+Dica: desenhe 3-5 pontos e percorra manualmente.
+
+6. Pipe / Shell
+
+picoshell: múltiplos comandos ligados por pipe
+
+Fluxo:
+
+Para cada comando:
+
+Se próximo existe → cria pipe
+
+fork()
+
+Filho dup2 para stdin/stdout correto
+
+execvp(cmd)
+
+Pai fecha pipe anterior e espera filhos
+
+Dica: memorize ordem de pipe, fork, dup2, execvp, close.
+
+7. Sandbox
+
+Fork + alarm + waitpid
+
+Filho: f() + exit(0)
+
+Pai:
+
+Configura alarm(timeout)
+
+waitpid
+
+Se timeout → kill(pid, SIGKILL)
+
+Saídas: nice function / bad function (exit code / sinal)
+
+8. JSON Parser
+
+Tipos: MAP / STRING / INTEGER
+
+Fluxo de parser:
+
+peek → decide tipo
+
+parse_string: entre "..."
+
+parse_int: scanf %d
+
+parse_map: { key : value, ... }
+
+Free: recursivo para MAP e STRING
+
+Serialize: recursivo, imprime {} ou "string" ou integer
+
+9. Expression Parser
+
+Nó: ADD / MULTI / VAL
+
+Recursão: expr → term → factor
+
+factor: número ou (expr)
+
+term: factor * factor ...
+
+expr: term + term ...
+
+Eval_tree: recursivo, percorre esquerda/direita
