@@ -160,105 +160,137 @@ int parser(json *dst, FILE *stream)
 // Parseia um número inteiro
 int parse_int(json *dst, FILE *stream)
 {
-	int	n;
+	long long n = 0;
+	int sign = 1;
+	int c = peek(stream);
 
-	if (fscanf(stream, "%d", &n) == 1) // Lê inteiro usando fscanf
-	{
-		dst->type = INTEGER;
-		dst->integer = n;
-		return (1); // Sucesso
+	if (c == '-') {
+		sign = -1;
+		getc(stream); // consume '-'
 	}
-	unexpected(stream);
-	return (-1); // Erro
+
+	c = peek(stream);
+	if (!isdigit(c)) {
+		unexpected(stream);
+		return -1;
+	}
+
+	while (isdigit(c = peek(stream))) {
+		n = n * 10 + (getc(stream) - '0');
+	}
+
+	dst->type = INTEGER;
+	dst->integer = n * sign;
+	return 1;
 }
 
 // Parseia uma string JSON (entre aspas, com escape)
 int parse_string(json *dst, FILE *stream)
 {
-	char	buffer[4096]; // Buffer para armazenar string
-	char	c;
-	int		i;
+    size_t size = 0;
+    size_t capacity = 16;
+    char *buffer = malloc(capacity);
+	char c;
 
-	if (!expect(stream, '"')) // Espera aspas de abertura
+	if (!expect(stream, '"')) {
+        free(buffer);
 		return (-1);
-	i = 0;
+    }
+
 	while (1)
 	{
 		c = getc(stream);
 		if (c == EOF)
 		{
+            free(buffer);
 			unexpected(stream);
 			return (-1);
 		}
-		if (c == '"') // Aspas de fechamento
+		if (c == '"')
 			break ;
-		if (c == '\\') // Caractere de escape
+		if (c == '\\')
 		{
-			c = getc(stream); // Lê próximo caractere
-			if (c == EOF)
-			{
-				unexpected(stream);
-				return (-1);
-			}
-			// Nota: aceita qualquer caractere após \, incluindo \" e \'
+			c = getc(stream);
+			if (c != '"' && c != '\\') {
+                // Invalid escape according to subject
+                free(buffer);
+                unexpected(stream);
+                return -1;
+            }
 		}
-		buffer[i++] = c; // Adiciona ao buffer
+        if (size + 1 >= capacity) {
+            capacity *= 2;
+            buffer = realloc(buffer, capacity);
+        }
+		buffer[size++] = c;
 	}
-	buffer[i] = '\0'; // Termina string
+	buffer[size] = '\0';
 	dst->type = STRING;
-	dst->string = strdup(buffer); // Copia para heap
+	dst->string = buffer;
 	return (1);
 }
 
-// Parseia um objeto JSON: {"key1": value1, "key2": value2, ...}
+// Helper to free a partially built map during parsing failure
+static void free_map_items(pair *items, size_t size) {
+    if (!items) return;
+    for (size_t i = 0; i < size; i++) {
+        free(items[i].key);
+        free_json(items[i].value);
+    }
+    free(items);
+}
+
 int parse_map(json *dst, FILE *stream)
 {
-	pair	*items; // Array de pares chave-valor
-	size_t	size;   // Número de pares
-	json	key;    // Chave temporária
+    pair *items = NULL;
+    size_t size = 0;
+    json key;
 
-	if (!expect(stream, '{')) // Espera chave de abertura
-		return (-1);
-	items = NULL;
-	size = 0;
-	while (!accept(stream, '}')) // Enquanto não encontra chave de fechamento
-	{
-		// Expande array para novo par
-		items = realloc(items, sizeof(pair) * (size + 1));
-		// Parseia chave (deve ser string)
-		if (parse_string(&key, stream) == -1)
-		{
-			free(items);
-			return (-1);
-		}
-		if (!expect(stream, ':')) // Espera dois pontos
-		{
-			free(key.string);
-			free(items);
-			return (-1);
-		}
-		// Parseia valor (pode ser qualquer tipo)
-		if (parser(&items[size].value, stream) == -1)
-		{
-			free(key.string);
-			free(items);
-			return (-1);
-		}
-		items[size].key = key.string; // Armazena chave
-		size++;
-		// Aceita vírgula opcional, mas deve ter '}' se não há vírgula
-		if (!accept(stream, ',') && peek(stream) != '}')
-		{
-			unexpected(stream);
-			free(items);
-			return (-1);
-		}
-	}
-	dst->type = MAP;
-	dst->map.size = size;
-	dst->map.data = items;
-	return (1);
+    if (!expect(stream, '{'))
+        return -1;
+
+    if (accept(stream, '}')) { // Empty map {}
+        dst->type = MAP;
+        dst->map.size = 0;
+        dst->map.data = NULL;
+        return 1;
+    }
+
+    while (1) {
+        items = realloc(items, sizeof(pair) * (size + 1));
+        if (!items) return -1; // Malloc failure
+
+        if (parse_string(&key, stream) == -1) {
+            free_map_items(items, size);
+            return -1;
+        }
+        if (!expect(stream, ':')) {
+            free(key.string);
+            free_map_items(items, size);
+            return -1;
+        }
+        if (parser(&items[size].value, stream) == -1) {
+            free(key.string);
+            free_map_items(items, size);
+            return -1;
+        }
+        items[size].key = key.string;
+        size++;
+
+        if (accept(stream, '}')) // End of map
+            break;
+        if (!expect(stream, ',')) { // Must be a comma before next element
+            free_map_items(items, size);
+            return -1;
+        }
+    }
+
+    dst->type = MAP;
+    dst->map.size = size;
+    dst->map.data = items;
+    return 1;
 }
+
 
 // Função principal do parser JSON
 int argo(json *dst, FILE *stream)
@@ -268,16 +300,28 @@ int argo(json *dst, FILE *stream)
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2) // Precisa do nome do arquivo
+	if (argc != 2)
 		return 1;
 	char *filename = argv[1];
-	FILE *stream = fopen(filename, "r"); // Abre arquivo para leitura
-	json	file; // Estrutura para armazenar JSON parseado
-	if (argo (&file, stream) != 1) // Se parsing falha
-	{
-		free_json(file); // Libera memória
+	FILE *stream = fopen(filename, "r");
+	if (!stream) {
+		printf("Error: Could not open file %s\n", filename);
 		return 1;
 	}
-	serialize(file); // Imprime JSON formatado
-	printf("\n");
+	json file;
+    // Initialize to prevent freeing garbage on failure
+	memset(&file, 0, sizeof(json));
+
+	if (argo(&file, stream) != 1)
+	{
+		// On failure, argo should have freed any memory it allocated internally
+		// before returning -1. The 'file' struct itself is on the stack.
+		// The original free_json(file) was buggy.
+		fclose(stream);
+		return 1;
+	}
+	serialize(file);
+	free_json(file); // Free memory on success
+	fclose(stream);
+	return 0;
 }

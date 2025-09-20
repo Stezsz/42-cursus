@@ -1,22 +1,3 @@
-// sandbox.c
-// Execução protegida de uma função com limite de tempo (timeout) em processo filho.
-// A ideia: executar a função "f" num fork separado, impor um alarm() (timeout) e
-// analisar como o filho terminou (sucesso, erro, sinal ou timeout) retornando um
-// código simples para o chamador.
-//
-// Retornos da função sandbox():
-//  1  -> função terminou normalmente (exit code 0)
-//  0  -> função "ruim" (timeout, sinal recebido ou exit code != 0)
-// -1  -> erro interno (ex: falha no fork ou wait inesperado)
-//
-// Parâmetros:
-//  f        -> ponteiro para função void(void) a ser executada no filho
-//  timeout  -> segundos máximos permitidos
-//  verbose  -> se true, imprime mensagens detalhadas
-//
-// Observação: usa alarm() + waitpid(). Para capturar timeout no processo pai
-// instalamos um handler de SIGALRM "inócuo" que simplesmente interrompe waitpid.
-
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -27,8 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Handler vazio: apenas faz com que sinais (SIGALRM) interrompam syscalls bloqueantes
-// sem encerrar o processo pai. Evita terminar o programa principal quando o timeout expira.
+// Fixed sandbox implementation
 static void do_nothing(int sig)
 {
 	(void)sig;
@@ -36,9 +16,9 @@ static void do_nothing(int sig)
 
 int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
 {
-	pid_t pid = fork(); // Cria processo filho para isolar a execução da função
+	pid_t pid = fork();
 
-	if (pid == -1) // Falha no fork
+	if (pid == -1)
 		return (-1);
 
 	if (pid == 0) // Processo filho
@@ -93,5 +73,52 @@ int	sandbox(void (*f)(void), unsigned int timeout, bool verbose)
 			printf("Bad function: %s\n", strsignal(WTERMSIG(st)));
 		return (0);
 	}
-	return (-1); // Caso não caia em nenhum cenário esperado
+	return (-1); // Should not be reached
+}
+
+
+// Test main from attachment
+static void ok_function(void)
+{
+    // This function is now empty to avoid interleaving output
+}
+
+static void slow_function(void)
+{
+    sleep(3);
+}
+
+static void crash_function(void)
+{
+    int *p = NULL;
+    *p = 42;
+    (void)p;
+}
+
+static void exit_function(void)
+{
+    exit(42);
+}
+
+int main(void)
+{
+    printf("== sandbox tester ==\n\n");
+
+    printf("--> Testing nice function:\n");
+    int r1 = sandbox(ok_function, 2, true);
+    printf("Result: %d (expected 1)\n\n", r1);
+
+    printf("--> Testing slow function (timeout):\n");
+    int r2 = sandbox(slow_function, 1, true);
+    printf("Result: %d (expected 0)\n\n", r2);
+
+    printf("--> Testing crash function (SIGSEGV):\n");
+    int r3 = sandbox(crash_function, 2, true);
+    printf("Result: %d (expected 0)\n\n", r3);
+
+    printf("--> Testing non-zero exit function:\n");
+    int r4 = sandbox(exit_function, 2, true);
+    printf("Result: %d (expected 0)\n\n", r4);
+
+    return 0;
 }
