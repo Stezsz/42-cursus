@@ -49,7 +49,7 @@ int	picoshell(char **cmds[])
 				close(pipefd[1]); // Fecha descriptor original
 			}
 			execvp(cmds[i][0], cmds[i]); // Executa o comando
-			exit(1); // Se execvp falha, sai com erro
+			exit(127); // Se execvp falha, sai com erro
 		}
 		// Processo pai: gerencia pipes e continua para próximo comando
 		if (prev_fd != -1)
@@ -65,7 +65,7 @@ int	picoshell(char **cmds[])
 	while (wait(&status) != -1)
 	{
 		// Se algum processo terminou com erro, marca exit_code como 1
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+		if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
 			exit_code = 1;
 	}
 	return (exit_code); // Retorna 0 se tudo ok, 1 se houve erro
