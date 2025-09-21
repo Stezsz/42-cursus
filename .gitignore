@@ -1,0 +1,25 @@
+# Compiled binaries and executables
+test_*
+argo
+vbc
+picoshell
+sandbox
+ft_popen
+
+# Object files
+*.o
+*.a
+
+# Core dumps
+core
+core.*
+
+# Temporary files
+*.tmp
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
