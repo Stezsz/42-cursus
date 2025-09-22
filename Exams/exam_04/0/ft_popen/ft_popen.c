@@ -1,54 +1,51 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// Implementa uma versão simplificada do popen() - cria pipe para comunicação com processo filho
 int	ft_popen(const char *file, char *const argv[], char type)
 {
-	// Valida parâmetros: arquivo, argumentos e tipo ('r' para leitura, 'w' para escrita)
 	if (!file || !argv || (type != 'r' && type != 'w'))
 		return -1;
 
-	int fd[2]; // Array de descritores: fd[0] = leitura, fd[1] = escrita
+	int fd[2];
 
 	pid_t pid;
 
-	// Cria pipe bidirecional para comunicação entre processos
 	if (pipe(fd) == -1)
 		return -1;
 
-	pid = fork(); // Cria processo filho
-	if (pid == -1) // Erro no fork
+	pid = fork();
+	if (pid == -1)
 	{
 		close(fd[0]);
 		close(fd[1]);
 		return -1;
 	}
 
-	if (type == 'r') // Tipo 'r': queremos LER a saída do comando
+	if (type == 'r')
 	{
-		if (fork() == 0) // Processo filho
+		if (fork() == 0)
 		{
-			dup2(fd[1], STDOUT_FILENO); // Redireciona stdout para escrita do pipe
-			close(fd[0]); // Fecha leitura (não precisamos no filho)
-			close(fd[1]); // Fecha escrita original (agora é stdout)
-			execvp(file, argv); // Executa comando - saída vai para o pipe
-			exit (-1); //ou 127 Se execvp falha, sai com erro
+			dup2(fd[1], STDOUT_FILENO);
+			close(fd[0]);
+			close(fd[1]);
+			execvp(file, argv);
+			exit (-1);
 		}
-		close(fd[1]); // Processo pai fecha escrita (só vai ler)
-		return (fd[0]); // Retorna descriptor de leitura para o pai
+		close(fd[1]);
+		return (fd[0]);
 	}
-	if (type == 'w') // Tipo 'w': queremos ESCREVER para a entrada do comando
+	if (type == 'w')
 	{
-		if (fork() == 0) // Processo filho
+		if (fork() == 0)
 		{
-			dup2(fd[0], STDIN_FILENO); // Redireciona stdin para leitura do pipe
-			close(fd[0]); // Fecha leitura original (agora é stdin)
-			close(fd[1]); // Fecha escrita (não precisamos no filho)
-			execvp(file, argv); // Executa comando - entrada vem do pipe
-			exit (-1); //ou 127 Se execvp falha, sai com erro
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[0]);
+			close(fd[1]);
+			execvp(file, argv);
+			exit (-1);
 		}
-		close(fd[0]); // Processo pai fecha leitura (só vai escrever)
-		return (fd[1]); // Retorna descriptor de escrita para o pai
+		close(fd[0]);
+		return (fd[1]);
 	}
-	return -1; // Tipo inválido
+	return -1;
 }

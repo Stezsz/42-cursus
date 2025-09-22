@@ -3,46 +3,42 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-// Nó da árvore sintática para expressões matemáticas
 typedef struct node {
     enum {
-        ADD,   // Operação de adição
-        MULTI, // Operação de multiplicação
-        VAL    // Valor numérico (folha da árvore)
+        ADD,
+        MULTI,
+        VAL
     }   type;
-    int val;          // Valor (apenas para tipo VAL)
-    struct node *l;   // Filho esquerdo
-    struct node *r;   // Filho direito
+    int val;
+    struct node *l;
+    struct node *r;
 }   node;
 
-node *parse_expr(char **s);   // Parseia expressão (menor precedência: +)
-node *parse_factor(char **s); // Parseia fator (maior precedência: números e parênteses)
-node *parse_term(char **s);   // Parseia termo (precedência média: *)
+node *parse_expr(char **s);
+node *parse_factor(char **s);
+node *parse_term(char **s);
 
-// Cria novo nó na heap copiando estrutura fornecida
 node    *new_node(node n)
 {
     node *ret = calloc(1, sizeof(n));
     if (!ret)
         return (NULL);
-    *ret = n; // Copia conteúdo
+    *ret = n;
     return (ret);
 }
 
-// Libera árvore recursivamente (pós-ordem)
 void    destroy_tree(node *n)
 {
     if (!n)
         return ;
-    if (n->type != VAL) // Se não é folha, libera filhos primeiro
+    if (n->type != VAL)
     {
         destroy_tree(n->l);
         destroy_tree(n->r);
     }
-    free(n); // Libera nó atual
+    free(n);
 }
 
-// Imprime erro para caractere inesperado e termina programa
 void    unexpected(char c)
 {
     if (c)
@@ -52,37 +48,33 @@ void    unexpected(char c)
     exit(1);
 }
 
-// Consome caractere específico se for o próximo na string
 int accept(char **s, char c)
 {
     if (**s == c)
     {
-        (*s)++; // Avança ponteiro da string
+        (*s)++;
         return (1);
     }
     return (0);
 }
 
-// Espera caractere específico, senão gera erro fatal
 int expect(char **s, char c)
 {
     if (accept(s, c))
         return (1);
-    unexpected(**s); // Termina programa com erro
+    unexpected(**s);
     return (0);
 }
 
-
-// Avalia árvore sintática recursivamente
 int eval_tree(node *tree)
 {
     switch (tree->type)
     {
-        case ADD:   // Soma dos filhos
+        case ADD:
             return (eval_tree(tree->l) + eval_tree(tree->r));
-        case MULTI: // Multiplicação dos filhos
+        case MULTI:
             return (eval_tree(tree->l) * eval_tree(tree->r));
-        case VAL:   // Retorna valor da folha
+        case VAL:
             return (tree->val);
     }
     return (0);
@@ -156,18 +148,18 @@ node *parse_term(char **s) {
 
 int main(int argc, char **argv)
 {
-    if (argc != 2) // Precisa exatamente de uma expressão
+    if (argc != 2)
         return (1);
-    char *s = argv[1]; // Expressão matemática como string
-    node *tree = parse_expr(&s); // Constrói árvore sintática
-    if (!tree || *s) { // Se parsing falha OU sobram caracteres não processados
+    char *s = argv[1];
+    node *tree = parse_expr(&s);
+    if (!tree || *s) {
         if (*s)
             unexpected(*s); // Caractere inesperado
         else
-            unexpected(0); // Fim de input inesperado
+            unexpected(0);
         return (1);
     }
-    printf("%d\n", eval_tree(tree)); // Avalia e imprime resultado
-    destroy_tree(tree); // Libera memória
+    printf("%d\n", eval_tree(tree));
+    destroy_tree(tree);
     return (0);
 }
