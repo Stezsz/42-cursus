@@ -4,7 +4,7 @@ All my 42 projects are linked here.
 
 Most of them are private but I'll be slowly making them public as time goes..
 
-## Common Core: 43% (9/21)
+## Common Core: 52% (11/21)
 
 ### Rank 0
 - [x] [Libft](https://github.com/Stezsz/Libft) (125%)
