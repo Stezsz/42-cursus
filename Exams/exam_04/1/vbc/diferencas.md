@@ -137,22 +137,22 @@ node    *parse_expr(char *s)
 ## vbc.c adiciona estas funções:
 
 ```c
-// Parseia expressão: termo + termo + termo... (associativa esquerda)
-// Precedência mais baixa: + tem menor precedência que *
 node *parse_expr(char **s) {
-    node *left = parse_term(s); // Parseia primeiro termo
+    node *left = parse_term(s);
     if (!left)
         return (NULL);
-    while (accept(s, '+')) { // Enquanto encontrar '+'
-        node *right = parse_term(s); // Parseia próximo termo
-        if (!right) {
+    while (accept(s, '+'))
+    {
+        node *right = parse_term(s);
+        if (!right)
+        {
             destroy_tree(left);
             return (NULL);
         }
-        // Cria nó ADD com left e right como filhos
         node n = {ADD, 0, left, right};
-        left = new_node(n); // left agora aponta para novo nó
-        if (!left) {
+        left = new_node(n);
+        if (!left)
+        {
             destroy_tree(right);
             return (NULL);
         }
@@ -160,42 +160,43 @@ node *parse_expr(char **s) {
     return (left);
 }
 
-// Parseia fator: número isolado ou expressão entre parênteses
-// Precedência mais alta: números e () são atômicos
 node *parse_factor(char **s) {
-    if (isdigit(**s)) { // Se é dígito (0-9)
-        node n = {VAL, **s - '0', NULL, NULL}; // Converte char para int
-        (*s)++; // Avança para próximo caractere
+    if (isdigit(**s)
+    {
+        node n = {VAL, **s - '0', NULL, NULL};
+        (*s)++;
         return (new_node(n));
     }
-    if (accept(s, '(')) { // Se encontra parênteses
-        node *n = parse_expr(s); // Parseia expressão dentro dos parênteses
-        if (!expect(s, ')')) { // Espera parênteses de fechamento
+    if (accept(s, '('))
+    {
+        node *n = parse_expr(s);
+        if (!expect(s, ')'))
+        {
             destroy_tree(n);
             return (NULL);
         }
         return (n);
     }
-    unexpected(**s); // Token não reconhecido
+    unexpected(**s);
     return (NULL);
 }
 
-// Parseia termo: fator * fator * fator... (associativa esquerda)
-// Precedência média: * tem mais precedência que + mas menos que números/parênteses
 node *parse_term(char **s) {
-    node *left = parse_factor(s); // Parseia primeiro fator
+    node *left = parse_factor(s);
     if (!left)
         return (NULL);
-    while (accept(s, '*')) { // Enquanto encontrar '*'
-        node *right = parse_factor(s); // Parseia próximo fator
-        if (!right) {
+    while (accept(s, '*'))
+    {
+        node *right = parse_factor(s);
+        if (!right)
+        {
             destroy_tree(left);
             return (NULL);
         }
-        // Cria nó MULTI com left e right como filhos
         node n = {MULTI, 0, left, right};
-        left = new_node(n); // left agora aponta para novo nó
-        if (!left) {
+        left = new_node(n);
+        if (!left)
+        {
             destroy_tree(right);
             return (NULL);
         }
@@ -230,7 +231,7 @@ int main(int argc, char **argv)
     node *tree = parse_expr(&s);
     if (!tree || *s) {
         if (*s)
-            unexpected(*s); // Caractere inesperado
+            unexpected(*s);
         else
             unexpected(0);
         return (1);
