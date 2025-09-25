@@ -137,7 +137,8 @@ node    *parse_expr(char *s)
 ## vbc.c adiciona estas funções:
 
 ```c
-node *parse_expr(char **s) {
+node *parse_expr(char **s)
+{
     node *left = parse_term(s);
     if (!left)
         return (NULL);
@@ -160,7 +161,8 @@ node *parse_expr(char **s) {
     return (left);
 }
 
-node *parse_factor(char **s) {
+node *parse_factor(char **s)
+{
     if (isdigit(**s)
     {
         node n = {VAL, **s - '0', NULL, NULL};
@@ -181,7 +183,8 @@ node *parse_factor(char **s) {
     return (NULL);
 }
 
-node *parse_term(char **s) {
+node *parse_term(char **s)
+{
     node *left = parse_factor(s);
     if (!left)
         return (NULL);
