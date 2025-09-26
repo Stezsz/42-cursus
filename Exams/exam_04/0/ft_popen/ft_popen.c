@@ -1,74 +1,46 @@
 #include <unistd.h>
 #include <stdlib.h>
-#include <sys/wait.h>
 
-int	picoshell(char **cmds[])
+int	ft_popen(const char *file, char *const argv[], char type)
 {
+	int	fd[2];
 	pid_t	pid;
-	int		pipefd[2];
-	int		prev_fd;
-	int		status;
-	int		exit_code;
-	int		i;
 
-	if (!cmds || !cmds[0])
-		return (1);
-
-	prev_fd = -1;
-	exit_code = 0;
-	i = 0;
-	while (cmds[i])
+	if (!file || !argv || (type != 'r' && type != 'w'))
+		return (-1);
+	if (pipe(fd) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == -1)
 	{
-		if (cmds[i + 1] && pipe(pipefd))
-		{
-			if (prev_fd != -1)
-			{
-				close(prev_fd);
-				prev_fd = -1;
-			}
-			return (1);
-		}
-		pid = fork();
-		if (pid == -1)
-		{
-			if (cmds[i + 1])
-			{
-				close(pipefd[0]);
-				close(pipefd[1]);
-			}
-			return (1);
-		}
-		if (pid == 0)
-		{
-			if (prev_fd != -1)
-			{
-				if (dup2(prev_fd, STDIN_FILENO) == -1)
-					exit(1);
-				close(prev_fd);
-			}
-			if (cmds[i + 1])
-			{
-				close(pipefd[0]);
-				if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-					exit(1);
-				close(pipefd[1]);
-			}
-			execvp(cmds[i][0], cmds[i]);
-			exit(127);
-		}
-		if (prev_fd != -1)
-			close(prev_fd);
-		if (cmds[i + 1])
-		{
-			close(pipefd[1]);
-			prev_fd = pipefd[0];
-		}
-		i++;
+		close(fd[0]);
+		close(fd[1]);
+		return (-1);
 	}
-	while (wait(&status) != -1)
+	if (pid == 0)
 	{
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			exit_code = 1;
+		if (type == 'r')
+		{
+			close(fd[0]);
+			if (dup2(fd[1], STDOUT_FILENO) == -1)
+				exit(-1);
+			close(fd[1]);
+		}
+		else
+		{
+			close(fd[1]);
+			if (dup2(fd[0], STDIN_FILENO) == -1)
+				exit(-1);
+			close(fd[0]);
+		}
+		execvp(file, argv);
+		exit(-1);
 	}
-	return (exit_code);
+	if (type == 'r')
+	{
+		close(fd[1]);
+		return (fd[0]);
+	}
+	close(fd[0]);
+	return (fd[1]);
 }
