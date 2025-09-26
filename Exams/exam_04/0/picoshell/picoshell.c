@@ -20,7 +20,14 @@ int	picoshell(char **cmds[])
 	while (cmds[i])
 	{
 		if (cmds[i + 1] && pipe(pipefd))
+		{
+			if (prev_fd != -1)
+			{
+				close(prev_fd);
+				prev_fd = -1;
+			}
 			return (1);
+		}
 		pid = fork();
 		if (pid == -1)
 		{
