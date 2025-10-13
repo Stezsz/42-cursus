@@ -25,7 +25,7 @@ Most of them are private but I'll be slowly making them public as time goes..
 
 ### Rank 4
 
-- [x] [NetPractice](https://github.com/Stezsz/NetPractice) (pending)
+- [x] [NetPractice](https://github.com/Stezsz/NetPractice) (100%)
 - [x] [CPP00-04](https://github.com/Stezsz/CPP00-04)
   - [CPP00](https://github.com/Stezsz/CPP00-04/tree/main/cpp00) (100%)
   - [CPP01](https://github.com/Stezsz/CPP00-04/tree/main/cpp01) (100%)
@@ -33,6 +33,16 @@ Most of them are private but I'll be slowly making them public as time goes..
   - [CPP03](https://github.com/Stezsz/CPP00-04/tree/main/cpp03) (100%)
   - [CPP04](https://github.com/Stezsz/CPP00-04/tree/main/cpp04) (80%)
 - [x] [cub3d](https://github.com/Stezsz/cub3d) (105%)
+
+### Rank 5
+- [ ] [Inception]() (pending)
+- [ ] [webserv]() (pending)
+- [ ] [CPP05-09]()
+  - [CPP05]() (pending)
+  - [CPP06]() (pending)
+  - [CPP07]() (pending)
+  - [CPP08]() (pending)
+  - [CPP09]() (pending)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
