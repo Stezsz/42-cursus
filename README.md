@@ -35,9 +35,9 @@ Most of them are private but I'll be slowly making them public as time goes..
 - [x] [cub3d](https://github.com/Stezsz/cub3d) (105%)
 
 ### Rank 5
-- [ ] [Inception]() (pending)
-- [ ] [webserv]() (pending)
-- [ ] [CPP05-09]()
+- [ ] [Inception](https://github.com/Stezsz/Inception) (pending)
+- [ ] [webserv](https://github.com/Stezsz/webserv) (pending)
+- [ ] [CPP05-09](https://github.com/Stezsz/CPP05-09)
   - [CPP05]() (pending)
   - [CPP06]() (pending)
   - [CPP07]() (pending)
