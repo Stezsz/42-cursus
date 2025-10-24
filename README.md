@@ -38,11 +38,11 @@ Most of them are private but I'll be slowly making them public as time goes..
 - [ ] [Inception](https://github.com/Stezsz/Inception) (pending)
 - [ ] [webserv](https://github.com/Stezsz/webserv) (pending)
 - [ ] [CPP05-09](https://github.com/Stezsz/CPP05-09)
-  - [CPP05]() (pending)
-  - [CPP06]() (pending)
-  - [CPP07]() (pending)
-  - [CPP08]() (pending)
-  - [CPP09]() (pending)
+  - [CPP05](https://github.com/Stezsz/CPP05-09/tree/main/cpp05) (pending)
+  - [CPP06](https://github.com/Stezsz/CPP05-09/tree/main/cpp06) (pending)
+  - [CPP07](https://github.com/Stezsz/CPP05-09/tree/main/cpp07) (pending)
+  - [CPP08](https://github.com/Stezsz/CPP05-09/tree/main/cpp08) (pending)
+  - [CPP09](https://github.com/Stezsz/CPP05-09/tree/main/cpp09) (pending)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
