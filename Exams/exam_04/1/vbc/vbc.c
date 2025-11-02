@@ -146,6 +146,30 @@ node *parse_term(char **s) {
     return (left);
 }
 
+int ft_balance(char *str)
+{
+    int = 0;
+    int open = 0;
+    int close = 0;
+    while (*str)
+    {
+        if (*str == '(')
+            open++;
+        else if (*str == ')')
+            close++;
+        str++;
+    }
+    if (open != close)
+    {
+        if (open > close)
+            printf("unexpected token '('\n");
+        else
+            printf("unexpected token ')'\n");
+        return (1);
+    }
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2)
@@ -159,6 +183,8 @@ int main(int argc, char **argv)
             unexpected(0);
         return (1);
     }
+    if (ft_balance(argv[1]) == 1)
+        return (1);
     printf("%d\n", eval_tree(tree));
     destroy_tree(tree);
     return (0);
