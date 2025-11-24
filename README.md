@@ -33,8 +33,8 @@ All my 42 projects are linked here.
 - [x] [cub3d](https://github.com/Stezsz/cub3d) (105%)
 
 ### Rank 5
-- [ ] [Inception](https://github.com/Stezsz/Inception) (100%)
-- [ ] [webserv](https://github.com/Stezsz/webserv) (100%)
+- [x] [Inception](https://github.com/Stezsz/Inception) (100%)
+- [x] [webserv](https://github.com/Stezsz/webserv) (100%)
 - [ ] [CPP05-09](https://github.com/Stezsz/CPP05-09)
   - [CPP05](https://github.com/Stezsz/CPP05-09/tree/main/cpp05) (100%)
   - [CPP06](https://github.com/Stezsz/CPP05-09/tree/main/cpp06) (pending)
