@@ -35,10 +35,10 @@ Most of them are private but I'll be slowly making them public as time goes..
 - [x] [cub3d](https://github.com/Stezsz/cub3d) (105%)
 
 ### Rank 5
-- [ ] [Inception](https://github.com/Stezsz/Inception) (pending)
-- [ ] [webserv](https://github.com/Stezsz/webserv) (pending)
+- [ ] [Inception](https://github.com/Stezsz/Inception) (100%)
+- [ ] [webserv](https://github.com/Stezsz/webserv) (100%)
 - [ ] [CPP05-09](https://github.com/Stezsz/CPP05-09)
-  - [CPP05](https://github.com/Stezsz/CPP05-09/tree/main/cpp05) (pending)
+  - [CPP05](https://github.com/Stezsz/CPP05-09/tree/main/cpp05) (100%)
   - [CPP06](https://github.com/Stezsz/CPP05-09/tree/main/cpp06) (pending)
   - [CPP07](https://github.com/Stezsz/CPP05-09/tree/main/cpp07) (pending)
   - [CPP08](https://github.com/Stezsz/CPP05-09/tree/main/cpp08) (pending)
