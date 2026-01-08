@@ -37,10 +37,10 @@ All my 42 projects are linked here.
 - [x] [webserv](https://github.com/Stezsz/webserv) (100%)
 - [ ] [CPP05-09](https://github.com/Stezsz/CPP05-09)
   - [CPP05](https://github.com/Stezsz/CPP05-09/tree/main/cpp05) (100%)
-  - [CPP06](https://github.com/Stezsz/CPP05-09/tree/main/cpp06) (pending)
-  - [CPP07](https://github.com/Stezsz/CPP05-09/tree/main/cpp07) (pending)
-  - [CPP08](https://github.com/Stezsz/CPP05-09/tree/main/cpp08) (pending)
-  - [CPP09](https://github.com/Stezsz/CPP05-09/tree/main/cpp09) (pending)
+  - [CPP06](https://github.com/Stezsz/CPP05-09/tree/main/cpp06) (100%)
+  - [CPP07](https://github.com/Stezsz/CPP05-09/tree/main/cpp07) (100%)
+  - [CPP08](https://github.com/Stezsz/CPP05-09/tree/main/cpp08) (100%)
+  - [CPP09](https://github.com/Stezsz/CPP05-09/tree/main/cpp09) (100%)
 
 https://github.com/leite-tiago/42_school/
 https://github.com/achrafelkhnissi
