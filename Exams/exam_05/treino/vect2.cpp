@@ -1,3 +1,5 @@
+#include "vect2.hpp"
+
 vect2::vect2() : _x(0), _y(0)
 {
 }
